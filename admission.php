@@ -149,6 +149,194 @@ $currentPage = basename($_SERVER['PHP_SELF']);
       </div>
     </div>
 
+    <div style="margin:0;font-family:Arial,Helvetica,sans-serif;color:#444;background:#fff;line-height:1.6;">
+
+    <!-- Eligibility & Age -->
+    <section style="max-width:1200px;margin:auto;padding:60px 20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-start;">
+
+        <div>
+          <h2 style="font-size:40px;margin:0 0 20px;font-weight:700;color:#111;">
+            Eligibility
+          </h2>
+          <ul style="padding-left:20px;">
+            <li style="margin-bottom:8px;">
+              Admission for academic session 2025–26 are open for Nursery to Class IX for both girls and boys.
+            </li>
+            <li style="margin-bottom:8px;">
+              The School would inform parents about interview and selection process in due course of time.
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="font-size:40px;margin:0 0 20px;font-weight:700;color:#111;">
+            Minimum Age For <span style="color:#167ce9;">Admission</span> Is
+          </h2>
+
+          <table style="width:100%;border-collapse:collapse;font-size:15px;">
+            <tr>
+              <th style="border:1px solid #ddd;padding:14px;background:#f6f6f6;text-align:left;">Grade</th>
+              <th style="border:1px solid #ddd;padding:14px;background:#f6f6f6;text-align:left;">Age</th>
+            </tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">Playgroup</td><td style="border:1px solid #ddd;padding:14px;">3 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">Nursery</td><td style="border:1px solid #ddd;padding:14px;">4 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">KG</td><td style="border:1px solid #ddd;padding:14px;">5 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">I</td><td style="border:1px solid #ddd;padding:14px;">6 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">II</td><td style="border:1px solid #ddd;padding:14px;">7 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">III</td><td style="border:1px solid #ddd;padding:14px;">8 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">IV</td><td style="border:1px solid #ddd;padding:14px;">9 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">V</td><td style="border:1px solid #ddd;padding:14px;">10 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">VI</td><td style="border:1px solid #ddd;padding:14px;">11 years</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">VIII</td><td style="border:1px solid #ddd;padding:14px;">12 years 6 months</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">IX</td><td style="border:1px solid #ddd;padding:14px;">13 years 6 months</td></tr>
+          </table>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Documents & Transfer -->
+    <section style="max-width:1200px;margin:auto;padding:60px 20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-start;">
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            Documents
+          </h2>
+          <p style="color:#777;">
+            For admission to Playgroup, Nursery, KG and Level I, parents are required to submit:
+          </p>
+          <ul style="padding-left:20px;">
+            <li style="margin-bottom:8px;">Photocopy of birth certificate issued by competent authority</li>
+            <li style="margin-bottom:8px;">Five passport size photographs of ward and parents</li>
+            <li style="margin-bottom:8px;">Admission form</li>
+            <li style="margin-bottom:8px;">Aadhaar card of ward & parents</li>
+          </ul>
+          <p style="color:#777;">
+            For other classes, Transfer Certificate and original birth certificate are required for verification.
+          </p>
+        </div>
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            Transfer <span style="color:#167ce9;">Certificates</span>
+          </h2>
+          <p style="color:#777;">
+            Students under transfer (including outside U.P.) must have their Transfer Certificates countersigned by the Inspector of Schools of the concerned state.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Calender & Prospectus -->
+    <section style="max-width:1200px;margin:auto;padding:60px 20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-start;">
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            Calender
+          </h2>
+          <ul style="padding-left:20px;">
+            <li style="margin-bottom:8px;">The academic year begins from April.</li>
+            <li style="margin-bottom:8px;">Summer Holidays are from the third week of May to the last week of June.</li>
+            <li style="margin-bottom:8px;">Winter Holidays of one week are observed in the last week of December.</li>
+            <li style="margin-bottom:8px;">Other holidays during the year are notified in the school diary.</li>
+            <li style="margin-bottom:8px;">School has adopted SMS Gateway for direct communication with Parent / Guardian.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            Change Of <span style="color:#167ce9;">Prospectus</span>
+          </h2>
+          <p style="color:#777;">
+            The instructions given in this prospectus supersede all other regulations reproduced elsewhere or printed in earlier issues. The prospectus is liable to change without notice. Any such changes, when made, will be binding on all existing students also.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Roles & Uniform and Diaries -->
+    <section style="max-width:1200px;margin:auto;padding:60px 20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-start;">
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            Role Of <span style="color:#167ce9;">Parents</span>
+          </h2>
+          <ul style="padding-left:20px;">
+            <li style="margin-bottom:8px;">Parents are expected to cooperate with the school authorities in maintaining punctuality, regularity and discipline.</li>
+            <li style="margin-bottom:8px;">Parents should ensure that their wards take an active interest in the school activities.</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            School Uniform, Booklist & <span style="color:#167ce9;">Diaries</span>
+          </h2>
+          <p style="color:#777;">
+            The instructions for the same would be given to the child and parents at the time of admission finalisation.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Course Structure -->
+    <section style="max-width:1200px;margin:auto;padding:60px 20px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:flex-start;">
+
+        <div>
+          <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+            Course <span style="color:#167ce9;">Structure</span>
+          </h2>
+          <p>The medium of instruction is ENGLISH and the school provides education to both boys and girls within a span of 14 years divided as under:</p>
+          <table style="width:100%;border-collapse:collapse;font-size:15px;">
+            <tr><td style="border:1px solid #ddd;padding:14px;">Nursery, LKG, UKG</td><td style="border:1px solid #ddd;padding:14px;">Primary School</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">Class I to V</td><td style="border:1px solid #ddd;padding:14px;">Junior School</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">Class VI to VIII</td><td style="border:1px solid #ddd;padding:14px;">Middle School</td></tr>
+            <tr><td style="border:1px solid #ddd;padding:14px;">Class IX to XII</td><td style="border:1px solid #ddd;padding:14px;">Senior School</td></tr>
+          </table>
+        </div>
+        <div>
+          <p style="font-size:22px; margin-bottom:10px; color:#222;"><b>The subjects taught at the school shall be:</b></p>
+          <ul>
+            <li>English, Hindi, Social Studies, Mathematics, Science, Moral Science, EVS</li>
+            <li>Physics, Chemistry, Biology</li>
+            <li>History, Geography, Political Science, Psychology</li>
+            <li>Economics, Commerce, Accountancy</li>
+            <li>Computer Science, Biotechnology</li>
+            <li>Physical Education, Art, Music(Western & Classical), Dance, Yoga</li>
+            <li>Yoga, Meditation and languages such as Sanskrit are an integral part of the school curriculum</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fee Structure -->
+    <section style="max-width:1200px;margin:auto;padding:60px 20px;">
+      <h2 style="font-size:40px;margin-bottom:20px;font-weight:700;color:#111;">
+        Fee <span style="color:#167ce9;">Structure</span>
+      </h2>
+      <ul style="padding-left:20px;">
+        <li style="margin-bottom:8px;">The Parents should ensure that fee of his/her ward is deposited in time.</li>
+        <li style="margin-bottom:8px;">Accepted through cashless channels only</li>
+        <li style="margin-bottom:8px;">Cheque drop till 7th of due month</li>
+        <li style="margin-bottom:8px;">Late fee accepted on Monday & Tuesday (9AM–11AM).</li>
+        <li style="margin-bottom:8px;">Please fill in all the information in the Fee Receipt Slip. On the back of the slip please fill up Cheque Number, Date, Your Bank Name & Branch. Please fill the Name, Class and Admission Number of student(s) and your contact number on the back of the Cheque too.</li>
+        <li style="margin-bottom:8px;">Please use MICR Cheque or Demand Drafts only. Out station Cheque will not be accepted . If fee is deposited by Non MICR or out station Cheque, it may result in non deposit of fee, which will cause inconvenience to parents and imposition of fine. Cheques should be CTS only.</li>
+        <li style="margin-bottom:8px;">In case of holidays on due date of fee collection, the fee will be accepted on the next working day.</li>
+        <li style="margin-bottom:8px;">In case the fee is deposited through cheque, parents have to ensure that the cheque is issued by them towards the fee deposit, is cleared from their bank. In any case school will not be responsible for the loss of cheque in transit, return of cheque or late clearing of the cheque. Please ensure that there are adequate funds in your account to cover the cheque issued by you. Cheque not honoured for any reason can lead to serious re-percussion.</li>
+      </ul>
+    </section>
+
+    </div>
+
+
+
     <!-- Marquee tag -->
 <div style="max-width:1100px; margin:40px auto; font-family:Arial, sans-serif; color:#333;">
 
@@ -290,7 +478,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </div>
 
                 <!-- Button -->
-                <button type="submit"
+                <button type="submit" onclick="window.location.href='https://vmsacademy.com/en/1225/10359'"
                   style="background:#167ce9; color:#fff; width:100%; padding:12px; font-size:18px; border:none; cursor:pointer;">
                   Apply Now
                 </button>
@@ -300,7 +488,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
           </div>
           <div class="col-md-7">
             <img src="images/DSC_6227.JPG" alt="Image" class="img-fluid" style="padding-bottom:20px;">
-            <img src="images/feature-4.jpeg" alt="Image" class="img-fluid">
+            <img src="images/feature-4.JPEG" alt="Image" class="img-fluid">
           </div>
         </div>
       </div>
@@ -394,6 +582,19 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         </div>
       </div>
     </section>
+
+
+<!--
+<script>
+  $(document).ready(function () {
+    const url = new URL(window.location);
+    if (url.searchParams.get('popup') === 'admission') {
+      $('#admissionModal').modal('show');
+      url.searchParams.delete('popup');
+      window.history.replaceState({}, document.title, url.pathname);
+    }
+  });
+</script>-->
 
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

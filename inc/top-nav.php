@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
   <div class="container-fluid px-4">
     <a class="navbar-brand" href="index.php">
-      <img src="images/logo.png" style="height:40px; width:auto; margin-right:8px;" alt="Uma Memorial Public School Logo">
+      <img src="images/logo.png" style="height:40px; width:auto; margin-right:8px;">
       Uma Memorial Public School
     </a>
 
@@ -47,12 +47,8 @@
           <a href="startup-innovation.php" class="nav-link">Startup & Innovation</a>
         </li>
 
-        <li class="nav-item <?= ($currentPage == 'contact.php') ? 'active' : '' ?>">
-          <a href="contact.php" class="nav-link">Contact</a>
-        </li>
-
         <li class="nav-item cta">
-          <a href="contact.php" class="nav-link" style="white-space:nowrap;"><span>Apply Now!</span></a>
+          <a href="https://vmsacademy.com/en/1225/10359" class="nav-link" style="white-space:nowrap;"><span>Apply Now!</span></a>
         </li>
 
       </ul>

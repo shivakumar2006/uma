@@ -14,7 +14,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
           <div class="col-md-8 ftco-animate text-center">
             <h1 class="mb-4">Shaping Bright Futures with Knowledge & Values</h1>
-            <p><a href="#" class="btn btn-primary px-4 py-3">Apply Now</a> <a href="#" class="btn btn-secondary px-4 py-3">View Courses</a></p>
+            <p><a href="https://vmsacademy.com/en/1225/10359" class="btn btn-primary px-4 py-3">Apply Now</a> <a href="#" class="btn btn-secondary px-4 py-3">View Courses</a></p>
           </div>
         </div>
       </div>
@@ -297,7 +297,7 @@ creativity, and a lifelong love for reading.</p>
     			</div>
     			<div class="col-md-4 d-flex ftco-animate">
     				<div class="course align-self-stretch">
-    					<a href="#" class="img" style="background-image: url(images/course-31.png)"></a>
+    					<a href="#" class="img" style="background-image: url(images/Course-31.png)"></a>
     					<div class="text p-4">
     						<p class="category"><span>Skil Build Programs</span></p>
     						<h3 class="mb-3"><a href="#">IBM Skill Build  </a></h3>
@@ -397,9 +397,10 @@ creativity, and a lifelong love for reading.</p>
                     <option>Class 7</option>
                     <option>Class 8</option>
                     <option>Class 9</option>
-                    <option>Class 10</option>
                     <option>Class 11</option>
-                    <option>Class 12</option>
+                    <option>Class Maths</option>
+                    <option>Class Commerce</option>
+                    <option>Class Science</option>
                   </select>
                 </div>
 
@@ -420,7 +421,7 @@ creativity, and a lifelong love for reading.</p>
                 </div>
 
                 <!-- Button -->
-                <button type="submit"
+                <button type="submit" onclick="window.location.href='https://vmsacademy.com/en/1225/10359'"
                   style="background:#167ce9; color:#fff; width:100%; padding:12px; font-size:18px; border:none; cursor:pointer;">
                   Apply Now
                 </button>

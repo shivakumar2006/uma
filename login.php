@@ -1,0 +1,40 @@
+<?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  <link rel="stylesheet" href="css/styles1.css" />
+</head>
+<body class="auth-body">
+  <div class="auth-card">
+    <h2>Login to Account</h2>
+    <p class="subtext">Please enter your email and password to continue</p>
+
+    <form>
+      <label>Email address:</label>
+      <input type="email" placeholder="esteban_schiller@gmail.com" required />
+
+      <div class="password-row">
+        <label>Password</label>
+        <a href="#" class="forgot">Forget Password?</a>
+      </div>
+      <input type="password" placeholder="••••••••" required />
+
+      <label class="checkbox">
+        <input type="checkbox" /> Remember Password
+      </label>
+
+      <button type="submit" class="btn">Sign In</button>
+
+      <p class="switch">
+        Don't have an account? <a href="signup.php">Create Account</a>
+      </p>
+    </form>
+  </div>
+</body>
+</html>
