@@ -20,6 +20,7 @@
               <h2 class="ftco-heading-2">Site Links</h2>
               <ul class="list-unstyled">
                 <li><a href="index.php" class="py-2 d-block">Home</a></li>
+                <li><a href="career2.php" class="py-2">Career </a><span class="tag" style="background-color: #ef4444; color: white; padding: 3px 10px; border-radius: 9999px; font-size: 0.6rem; font-weight: 500;">Hiring</span></li>
                 <li><a href="about.php" class="py-2 d-block">About</a></li>
                 <li><a href="syllabus.php" class="py-2 d-block">Academics</a></li>
                 <li><a href="admission.php" class="py-2 d-block">Admissions</a></li>
@@ -35,7 +36,7 @@
 	              <ul>
 	                <li><span class="icon icon-map-marker"></span><span class="text">Dherahi , Lakhanpur Cholapur Varanasi 221101</span></li>
 	                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+918090587632 +918052305632</span></a></li>
-	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">inquiry@umagroups.com</span></a></li>
+	                <li><a href="#"><span class="icon icon-envelope"></span><span class="text">admission@umagroups.com</span></a></li>
 	              </ul>
 	            </div>
             </div>
