@@ -52,16 +52,16 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 			<div class="col-md-6 offset-md-1 order-1 order-md-2">
 				<div class="row gx-2 gx-lg-3">
 					<div class="col-6">
-						<div class="mb-2"><img class="img-fluid rounded-3" src="https://freefrontend.dev/assets/square.png"></div>
+						<div class="mb-2"><img class="img-fluid rounded-3" src="images/feature_1.jpg"></div>
 					</div>
 					<div class="col-6">
-						<div class="mb-2"><img class="img-fluid rounded-3" src="https://freefrontend.dev/assets/square.png"></div>
+						<div class="mb-2"><img class="img-fluid rounded-3" src="images/feature-2.jpg"></div>
 					</div>
 					<div class="col-6">
-						<div class="mb-2"><img class="img-fluid rounded-3" src="https://freefrontend.dev/assets/square.png"></div>
+						<div class="mb-2"><img class="img-fluid rounded-3" src="images/footer-1.jpeg"></div>
 					</div>
 					<div class="col-6">
-						<div class="mb-2"><img class="img-fluid rounded-3" src="https://freefrontend.dev/assets/square.png"></div>
+						<div class="mb-2"><img class="img-fluid rounded-3" src="images/feature-4.jpeg"></div>
 					</div>
 				</div>
 			</div>
