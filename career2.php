@@ -4,12 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Careers | Uma Memorial Public School</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="icon" type="image/jpg" href="images/logo-1_imresizer_1.jpg">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
+
         * {
             font-family: 'Inter', sans-serif;
         }
@@ -180,8 +190,10 @@
                     </div>
                     <span class="font-bold text-xl text-gray-800">Uma Memorial Public School</span>
                 </div>
-                <div class="px-4 py-3 space-y-3">
+                <div class="px-4 py-3">
                     <div class="auth-buttons">
+                        <a href="index.php" class="text-gray-700 transition hover:text-[#167CE9] px-2 mt-3">Home</a>
+                        <a href="about.php" class="text-gray-700 transition hover:text-[#167CE9] px-2 mt-3">About</a>
                         <a href="login.php" class="bg-[#167CE9] text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#FFC300] transition shadow-lg">Login</a>
                         <a href="signup.php" class="bg-[#FFC300] text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-[#167CE9] transition">Sign Up</a>
                     </div>
@@ -233,7 +245,7 @@
             <!-- Stats -->
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16">
                 <div class="stat-card rounded-2xl p-6 text-center">
-                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">150+</div>
+                    <div class="text-3xl md:text-4xl font-bold text-white mb-2">30+</div>
                     <div class="text-blue-200 text-sm">Faculty Members</div>
                 </div>
                 <div class="stat-card rounded-2xl p-6 text-center">
@@ -630,7 +642,9 @@
                 <p class="text-blue-100 max-w-2xl mx-auto">A transparent and supportive journey from application to offer.</p>
             </div>
             
-            <div class="grid md:grid-cols-4 gap-8">
+            <div class="grid md:grid-cols-7 gap-2 items-center">
+
+                <!-- Step 1 -->
                 <div class="text-center scroll-animate">
                     <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
                         <span class="text-2xl font-bold text-white">1</span>
@@ -638,7 +652,13 @@
                     <h3 class="text-xl font-bold text-white mb-3">Submit Application</h3>
                     <p class="text-blue-100">Complete our online application form and upload your resume and cover letter.</p>
                 </div>
-                
+
+                <!-- Arrow -->
+                <div class="hidden md:flex justify-center">
+                    <i class="fas fa-arrow-right text-white text-3xl opacity-70 animate-pulse"></i>
+                </div>
+
+                <!-- Step 2 -->
                 <div class="text-center scroll-animate">
                     <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
                         <span class="text-2xl font-bold text-white">2</span>
@@ -646,7 +666,13 @@
                     <h3 class="text-xl font-bold text-white mb-3">Initial Screening</h3>
                     <p class="text-blue-100">Our HR team reviews applications and conducts phone interviews with qualified candidates.</p>
                 </div>
-                
+
+                <!-- Arrow -->
+                <div class="hidden md:flex justify-center">
+                    <i class="fas fa-arrow-right text-white text-3xl opacity-70 animate-pulse"></i>
+                </div>
+
+                <!-- Step 3 -->
                 <div class="text-center scroll-animate">
                     <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
                         <span class="text-2xl font-bold text-white">3</span>
@@ -654,7 +680,13 @@
                     <h3 class="text-xl font-bold text-white mb-3">Campus Interview</h3>
                     <p class="text-blue-100">Meet with department heads, demonstrate teaching skills, and tour our facilities.</p>
                 </div>
-                
+
+                <!-- Arrow -->
+                <div class="hidden md:flex justify-center">
+                    <i class="fas fa-arrow-right text-white text-3xl opacity-70 animate-pulse"></i>
+                </div>
+
+                <!-- Step 4 -->
                 <div class="text-center scroll-animate">
                     <div class="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-6">
                         <span class="text-2xl font-bold text-white">4</span>
@@ -662,7 +694,9 @@
                     <h3 class="text-xl font-bold text-white mb-3">Offer & Onboarding</h3>
                     <p class="text-blue-100">Receive your offer and join our comprehensive orientation program.</p>
                 </div>
+
             </div>
+
         </div>
     </section>
 
@@ -679,7 +713,7 @@
 
     <!-- Footer -->
     <footer class="relative bg-cover bg-center bg-no-repeat"
-            style="background-image: url('images/footer-1.jpeg');">
+            style="background-image: url('images/footer-1.jpeg');" loading="lazy" decoding="async">
 
     <!-- Dark Overlay -->
     <div class="absolute inset-0 bg-[#0f172a]/85"></div>
@@ -872,8 +906,13 @@
                     </div>
                     
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Cover Letter</label>
-                        <textarea rows="4" class="w-full border border-gray-300 rounded-lg px-4 py-3" placeholder="Tell us why you're interested in this position..."></textarea>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Address *</label>
+                        <textarea rows="2" class="w-full border border-gray-300 rounded-lg px-4 py-3" placeholder="Enter your full address..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Expected Salary *</label>
+                        <input type="text" required class="w-full border border-gray-300 rounded-lg px-4 py-3" placeholder="e.g., Rs.50,000 - Rs.60,000">
                     </div>
                     
                     <div>

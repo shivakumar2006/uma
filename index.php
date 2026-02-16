@@ -8,7 +8,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
  
     
-    <div class="hero-wrap" style="background-image: url('images/DSC_4285.JPG'); background-attachment:fixed;">
+    <div class="hero-wrap" style="background-image: url('images/DSC_4285.JPG'); background-attachment:fixed;" loading="lazy" decoding="async">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text align-items-center justify-content-center" data-scrollax-parent="true">
@@ -37,13 +37,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 		              </form>
 		              <p>Just Browsing? <a href="#"> See all courses</a></p>
     						</div>
-    						<div class="one-forth order-first img" style="background-image: url(images/feature-2.jpg);"></div>
+    						<div class="one-forth order-first img" style="background-image: url(images/feature-2.jpg);" loading="lazy" decoding="async"></div>
     					</div>
     					<div class="full-wrap ftco-animate">
     						<div class="one-half">
     							<div class="featured-blog d-md-flex">
     								<div class="image d-flex order-last">
-    									<a href="#" class="img" style="background: url(images/feature-4.jpeg);"></a>
+    									<a href="#" class="img" style="background: url(images/feature-4.jpeg);" loading="lazy" decoding="async"></a>
     								</div>
     								<div class="text order-first">
     									<span class="date">Sep 07, 2025</span>
@@ -205,7 +205,7 @@ creativity, and a lifelong love for reading.</p>
     	</div>
     </section>
 
-    <section class="ftco-section-3 img" style="background-image: url(images/DSC_6235.JPG);">
+    <section class="ftco-section-3 img" style="background-image: url(images/DSC_6235.JPG);" loading="lazy" decoding="async">
     	<div class="overlay"></div>
     	<div class="container">
     		<div class="row d-md-flex justify-content-center">
@@ -273,7 +273,7 @@ creativity, and a lifelong love for reading.</p>
     		<div class="row">
     			<div class="col-md-4 d-flex ftco-animate">
     				<div class="course align-self-stretch">
-    					<a href="#" class="img" style="background-image: url(images/feature_1.jpg)"></a>
+    					<a href="#" class="img" style="background-image: url(images/feature_1.jpg)" loading="lazy" decoding="async"></a>
     					<div class="text p-4">
     						<p class="category"><span>Academic Program</span></p>
     						<h3 class="mb-3 text-justify"><a href="#">PlayGroup - 12th  </a></h3>
@@ -285,7 +285,7 @@ creativity, and a lifelong love for reading.</p>
     			</div>
     			<div class="col-md-4 d-flex ftco-animate">
     				<div class="course align-self-stretch">
-    					<a href="#" class="img" style="background-image: url(images/DSC_6227.JPG)"></a>
+    					<a href="#" class="img" style="background-image: url(images/DSC_6227.JPG)" loading="lazy" decoding="async"></a>
     					<div class="text p-4">
     						<p class="category"><span>Enterpreneurship Programs</span></p>
     						<h3 class="mb-3"><a href="#">Startup And Innovation </a></h3>
@@ -297,7 +297,7 @@ creativity, and a lifelong love for reading.</p>
     			</div>
     			<div class="col-md-4 d-flex ftco-animate">
     				<div class="course align-self-stretch">
-    					<a href="#" class="img" style="background-image: url(images/Course-31.png)"></a>
+    					<a href="#" class="img" style="background-image: url(images/Course-31.png)" loading="lazy" decoding="async"></a>
     					<div class="text p-4">
     						<p class="category"><span>Skil Build Programs</span></p>
     						<h3 class="mb-3"><a href="#">IBM Skill Build  </a></h3>
