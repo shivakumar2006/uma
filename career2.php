@@ -570,7 +570,7 @@
                     </div>
                     <p class="text-gray-600 mb-6">"Working at Greenwood has been the most rewarding experience of my career. The administration truly supports teachers and provides resources for us to succeed."</p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold">SM</div>
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold">NK</div>
                         <div class="ml-4">
                             <div class="font-semibold text-gray-900">Neeraj Kumar</div>
                             <div class="text-sm text-gray-500">Science Teacher, 8 years</div>
@@ -588,7 +588,7 @@
                     </div>
                     <p class="text-gray-600 mb-6">"The professional development opportunities here are unmatched. I've grown so much as an educator thanks to the continuous learning environment."</p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold">JR</div>
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white font-bold">AS</div>
                         <div class="ml-4">
                             <div class="font-semibold text-gray-900">Anuj Sharma</div>
                             <div class="text-sm text-gray-500">History Department Head, 12 years</div>
@@ -606,7 +606,7 @@
                     </div>
                     <p class="text-gray-600 mb-6">"The work-life balance and benefits package are exceptional. My children attend Greenwood, and the tuition discount has been a game-changer for our family."</p>
                     <div class="flex items-center">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold">LP</div>
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white font-bold">AS</div>
                         <div class="ml-4">
                             <div class="font-semibold text-gray-900">Anjali Saxena</div>
                             <div class="text-sm text-gray-500">Administrative Coordinator, 5 years</div>
