@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="admin2.css">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-xl z-50">
+            <div class="h-full flex flex-col">
+                <div class="gradient-bg p-6">
+                    <div class="flex items-center space-x-3">
+                        <i class="fas fa-graduation-cap text-white text-3xl"></i>
+                        <div>
+                            <h1 class="text-white font-bold text-xl">Admin Panel</h1>
+                            <p class="text-purple-100 text-xs">School Management</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <nav class="flex-1 p-4 overflow-y-auto">
+                    <ul class="space-y-2">
+                        <li>
+                            <a href="#" onclick="showSection('dashboard')" class="sidebar-item flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:text-white">
+                                <i class="fas fa-dashboard w-5"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('careers')" class="sidebar-item flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:text-white">
+                                <i class="fas fa-briefcase w-5"></i>
+                                <span>Career Positions</span>
+                                <span class="ml-auto bg-red-500 text-white text-xs px-2 py-1 rounded-full notification-dot">3</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('daily-diary')" class="sidebar-item flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:text-white">
+                                <i class="fas fa-book w-5"></i>
+                                <span>Daily Diary</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('notice')" class="sidebar-item flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:text-white">
+                                <i class="fas fa-bullhorn w-5"></i>
+                                <span>Notice Board</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('programs')" class="sidebar-item flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:text-white">
+                                <i class="fas fa-tasks w-5"></i>
+                                <span>Our Programs</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" onclick="showSection('academics')" class="sidebar-item flex items-center space-x-3 text-gray-700 p-3 rounded-lg hover:text-white">
+                                <i class="fas fa-microscope w-5"></i>
+                                <span>Academics</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <div class="p-4 border-t">
+                    <div class="flex items-center space-x-3">
+                        <img src="https://picsum.photos/seed/admin/40/40" alt="Admin" class="w-10 h-10 rounded-full">
+                        <div>
+                            <p class="text-sm font-semibold">Admin User</p>
+                            <p class="text-xs text-gray-500">admin@school.edu</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-white shadow-sm border-b">
+                <div class="px-6 py-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <button onclick="toggleSidebar()" class="lg:hidden text-gray-600">
+                            <i class="fas fa-bars text-xl"></i>
+                        </button>
+                        <h2 class="text-2xl font-semibold text-gray-800">Dashboard</h2>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <button class="relative">
+                            <i class="fas fa-bell text-gray-600 text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">5</span>
+                        </button>
+                        <button class="relative">
+                            <i class="fas fa-envelope text-gray-600 text-xl"></i>
+                            <span class="absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">2</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Content Sections -->
+            <div class="p-6">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="content-section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+                        <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="bg-blue-100 rounded-full p-3">
+                                    <i class="fas fa-users text-blue-600 text-xl"></i>
+                                </div>
+                                <span class="text-green-500 text-sm font-semibold">+12%</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">1,234</h3>
+                            <p class="text-gray-500 text-sm">Total Students</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="bg-green-100 rounded-full p-3">
+                                    <i class="fas fa-chalkboard-teacher text-green-600 text-xl"></i>
+                                </div>
+                                <span class="text-green-500 text-sm font-semibold">+5%</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">89</h3>
+                            <p class="text-gray-500 text-sm">Total Teachers</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="bg-purple-100 rounded-full p-3">
+                                    <i class="fas fa-clipboard-list text-purple-600 text-xl"></i>
+                                </div>
+                                <span class="text-yellow-500 text-sm font-semibold">+18%</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">42</h3>
+                            <p class="text-gray-500 text-sm">Active Notices</p>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-lg p-6 card-hover">
+                            <div class="flex items-center justify-between mb-4">
+                                <div class="bg-red-100 rounded-full p-3">
+                                    <i class="fas fa-briefcase text-red-600 text-xl"></i>
+                                </div>
+                                <span class="text-green-500 text-sm font-semibold">New</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-800">3</h3>
+                            <p class="text-gray-500 text-sm">Open Positions</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-lg font-semibold mb-4">Recent Activities</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-lg transition">
+                                    <div class="bg-blue-100 rounded-full p-2">
+                                        <i class="fas fa-plus text-blue-600 text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">New notice added</p>
+                                        <p class="text-xs text-gray-500">2 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-lg transition">
+                                    <div class="bg-green-100 rounded-full p-2">
+                                        <i class="fas fa-edit text-green-600 text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">Daily diary updated</p>
+                                        <p class="text-xs text-gray-500">5 hours ago</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3 p-3 hover:bg-gray-50 rounded-lg transition">
+                                    <div class="bg-purple-100 rounded-full p-2">
+                                        <i class="fas fa-user-plus text-purple-600 text-sm"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <p class="text-sm font-medium">New job posting</p>
+                                        <p class="text-xs text-gray-500">1 day ago</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <h3 class="text-lg font-semibold mb-4">Quick Actions</h3>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="openModal('noticeModal')" class="p-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg hover:shadow-lg transition">
+                                    <i class="fas fa-bullhorn mb-2 text-xl"></i>
+                                    <p class="text-sm">Add Notice</p>
+                                </button>
+                                <button onclick="openModal('diaryModal')" class="p-4 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg hover:shadow-lg transition">
+                                    <i class="fas fa-book mb-2 text-xl"></i>
+                                    <p class="text-sm">Daily Diary</p>
+                                </button>
+                                <button onclick="openModal('programModal')" class="p-4 bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg hover:shadow-lg transition">
+                                    <i class="fas fa-tasks mb-2 text-xl"></i>
+                                    <p class="text-sm">Add Program</p>
+                                </button>
+                                <button onclick="openModal('careerModal')" class="p-4 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-lg hover:shadow-lg transition">
+                                    <i class="fas fa-briefcase mb-2 text-xl"></i>
+                                    <p class="text-sm">Add Position</p>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Career Positions Section -->
+                <section id="careers" class="content-section hidden">
+                    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold">Open Positions</h3>
+                            <button onclick="openModal('careerModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                <i class="fas fa-plus mr-2"></i>Add Position
+                            </button>
+                        </div>
+                        
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead>
+                                    <tr class="border-b">
+                                        <th class="text-left py-3 px-4">Position</th>
+                                        <th class="text-left py-3 px-4">Department</th>
+                                        <th class="text-left py-3 px-4">Type</th>
+                                        <th class="text-left py-3 px-4">Applications</th>
+                                        <th class="text-left py-3 px-4">Status</th>
+                                        <th class="text-left py-3 px-4">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="careerTable">
+                                    <tr class="border-b hover:bg-gray-50">
+                                        <td class="py-3 px-4">Mathematics Teacher</td>
+                                        <td class="py-3 px-4">Academics</td>
+                                        <td class="py-3 px-4">Full-time</td>
+                                        <td class="py-3 px-4">24</td>
+                                        <td class="py-3 px-4">
+                                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
+                                        </td>
+                                        <td class="py-3 px-4">
+                                            <button class="text-blue-600 hover:text-blue-800 mr-2">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                            <button class="text-red-600 hover:text-red-800">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Daily Diary Section -->
+                <section id="daily-diary" class="content-section hidden">
+                    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold">Daily Diary Entries</h3>
+                            <button onclick="openModal('diaryModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                <i class="fas fa-plus mr-2"></i>Add Entry
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="diaryCards">
+                            <div class="border rounded-lg p-4 hover:shadow-lg transition">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Class 10A</span>
+                                    <span class="text-xs text-gray-500">Today</span>
+                                </div>
+                                <h4 class="font-semibold mb-2">Mathematics Assignment</h4>
+                                <p class="text-sm text-gray-600 mb-3">Complete exercise 5.1 from chapter 5 for tomorrow's discussion.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs text-gray-500">Mr. Johnson</span>
+                                    <button class="text-blue-600 text-sm hover:text-blue-800">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Notice Board Section -->
+                <section id="notice" class="content-section hidden">
+                    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold">Notice Board</h3>
+                            <button onclick="openModal('noticeModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                <i class="fas fa-plus mr-2"></i>Add Notice
+                            </button>
+                        </div>
+                        
+                        <div class="space-y-4" id="noticeList">
+                            <div class="border-l-4 border-blue-500 bg-blue-50 p-4 rounded-lg">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold text-blue-900">School Annual Function</h4>
+                                    <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded">Important</span>
+                                </div>
+                                <p class="text-sm text-blue-800 mb-2">The annual function will be held on December 15th, 2024. All students are required to attend.</p>
+                                <div class="flex items-center justify-between text-xs text-blue-600">
+                                    <span>Posted: Dec 1, 2024</span>
+                                    <div class="space-x-2">
+                                        <button class="hover:text-blue-800">Edit</button>
+                                        <button class="hover:text-red-600">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Programs Section -->
+                <section id="programs" class="content-section hidden">
+                    <div class="bg-white rounded-xl shadow-lg p-6 mb-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-semibold">Our Programs</h3>
+                            <button onclick="openModal('programModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                <i class="fas fa-plus mr-2"></i>Add Program
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="programGrid">
+                            <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl p-6 text-white card-hover">
+                                <i class="fas fa-rocket text-3xl mb-4"></i>
+                                <h4 class="text-xl font-semibold mb-2">STEM Program</h4>
+                                <p class="text-sm opacity-90 mb-4">Advanced Science, Technology, Engineering, and Mathematics curriculum.</p>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs">200+ Students</span>
+                                    <button class="text-white hover:text-gray-200">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Academics Section -->
+                <section id="academics" class="content-section hidden">
+                    <div class="space-y-6">
+                        <!-- Sample Papers -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xl font-semibold">Sample Papers</h3>
+                                <button onclick="openModal('sampleModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                    <i class="fas fa-plus mr-2"></i>Upload Paper
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" id="samplePapers">
+                                <div class="border rounded-lg p-4 hover:shadow-lg transition">
+                                    <i class="fas fa-file-pdf text-red-500 text-2xl mb-2"></i>
+                                    <h5 class="font-semibold text-sm">Math Final Exam</h5>
+                                    <p class="text-xs text-gray-500">Class 10</p>
+                                    <button class="mt-2 text-blue-600 text-sm hover:text-blue-800">Download</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Syllabus -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xl font-semibold">Syllabus</h3>
+                                <button onclick="openModal('syllabusModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                    <i class="fas fa-plus mr-2"></i>Add Syllabus
+                                </button>
+                            </div>
+                            
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead>
+                                        <tr class="border-b">
+                                            <th class="text-left py-3 px-4">Subject</th>
+                                            <th class="text-left py-3 px-4">Class</th>
+                                            <th class="text-left py-3 px-4">Term</th>
+                                            <th class="text-left py-3 px-4">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="syllabusTable">
+                                        <tr class="border-b hover:bg-gray-50">
+                                            <td class="py-3 px-4">Physics</td>
+                                            <td class="py-3 px-4">Class 12</td>
+                                            <td class="py-3 px-4">First Term</td>
+                                            <td class="py-3 px-4">
+                                                <button class="text-blue-600 hover:text-blue-800 mr-2">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="text-green-600 hover:text-green-800 mr-2">
+                                                    <i class="fas fa-download"></i>
+                                                </button>
+                                                <button class="text-red-600 hover:text-red-800">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <!-- Time Table -->
+                        <div class="bg-white rounded-xl shadow-lg p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h3 class="text-xl font-semibold">Time Tables</h3>
+                                <button onclick="openModal('timetableModal')" class="btn-primary text-white px-4 py-2 rounded-lg">
+                                    <i class="fas fa-plus mr-2"></i>Create Time Table
+                                </button>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="timetableCards">
+                                <div class="border rounded-lg p-4 hover:shadow-lg transition">
+                                    <div class="flex items-center justify-between mb-3">
+                                        <h5 class="font-semibold">Class 10A</h5>
+                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Active</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-3">Monday - Friday Schedule</p>
+                                    <button class="text-blue-600 text-sm hover:text-blue-800">View Schedule</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modals -->
+    <!-- Career Modal -->
+    <div id="careerModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Add New Position</h3>
+            <form onsubmit="saveCareer(event)">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Position Title" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Department</option>
+                        <option>Academics</option>
+                        <option>Administration</option>
+                        <option>Support Staff</option>
+                    </select>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Employment Type</option>
+                        <option>Full-time</option>
+                        <option>Part-time</option>
+                        <option>Contract</option>
+                    </select>
+                    <textarea placeholder="Job Description" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" required></textarea>
+                    <input type="number" placeholder="Vacancies" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('careerModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Save Position</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Daily Diary Modal -->
+    <div id="diaryModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Add Daily Diary Entry</h3>
+            <form onsubmit="saveDiary(event)">
+                <div class="space-y-4">
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Class</option>
+                        <option>Class 10A</option>
+                        <option>Class 10B</option>
+                        <option>Class 11A</option>
+                        <option>Class 12A</option>
+                    </select>
+                    <input type="text" placeholder="Subject" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <textarea placeholder="Entry Description" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" required></textarea>
+                    <input type="date" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('diaryModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Save Entry</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Notice Modal -->
+    <div id="noticeModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Add New Notice</h3>
+            <form onsubmit="saveNotice(event)">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Notice Title" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Priority Level</option>
+                        <option>Important</option>
+                        <option>Normal</option>
+                        <option>Urgent</option>
+                    </select>
+                    <textarea placeholder="Notice Content" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" rows="5" required></textarea>
+                    <input type="date" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('noticeModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Post Notice</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Program Modal -->
+    <div id="programModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Add New Program</h3>
+            <form onsubmit="saveProgram(event)">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Program Name" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <textarea placeholder="Program Description" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" rows="4" required></textarea>
+                    <input type="number" placeholder="Target Students" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Program Type</option>
+                        <option>Academic</option>
+                        <option>Extracurricular</option>
+                        <option>Sports</option>
+                        <option>Cultural</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('programModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Add Program</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Sample Paper Modal -->
+    <div id="sampleModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Upload Sample Paper</h3>
+            <form onsubmit="saveSample(event)">
+                <div class="space-y-4">
+                    <input type="text" placeholder="Paper Title" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Class</option>
+                        <option>Class 10</option>
+                        <option>Class 11</option>
+                        <option>Class 12</option>
+                    </select>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Subject</option>
+                        <option>Mathematics</option>
+                        <option>Physics</option>
+                        <option>Chemistry</option>
+                        <option>Biology</option>
+                        <option>English</option>
+                    </select>
+                    <input type="file" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" accept=".pdf" required>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('sampleModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Syllabus Modal -->
+    <div id="syllabusModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Add Syllabus</h3>
+            <form onsubmit="saveSyllabus(event)">
+                <div class="space-y-4">
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Subject</option>
+                        <option>Physics</option>
+                        <option>Chemistry</option>
+                        <option>Biology</option>
+                        <option>Mathematics</option>
+                        <option>English</option>
+                    </select>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Class</option>
+                        <option>Class 10</option>
+                        <option>Class 11</option>
+                        <option>Class 12</option>
+                    </select>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Term</option>
+                        <option>First Term</option>
+                        <option>Second Term</option>
+                        <option>Annual</option>
+                    </select>
+                    <input type="file" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" accept=".pdf" required>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('syllabusModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Add Syllabus</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Time Table Modal -->
+    <div id="timetableModal" class="modal fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md">
+            <h3 class="text-xl font-semibold mb-4">Create Time Table</h3>
+            <form onsubmit="saveTimetable(event)">
+                <div class="space-y-4">
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Select Class</option>
+                        <option>Class 10A</option>
+                        <option>Class 10B</option>
+                        <option>Class 11A</option>
+                        <option>Class 12A</option>
+                    </select>
+                    <input type="text" placeholder="Time Table Name" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                    <select class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" required>
+                        <option>Schedule Type</option>
+                        <option>Monday - Friday</option>
+                        <option>Weekly</option>
+                        <option>Custom</option>
+                    </select>
+                    <input type="file" class="form-input w-full p-3 border rounded-lg focus:outline-none focus:border-blue-500" accept=".pdf,.xlsx,.xls" required>
+                </div>
+                <div class="flex justify-end space-x-3 mt-6">
+                    <button type="button" onclick="closeModal('timetableModal')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Cancel</button>
+                    <button type="submit" class="btn-primary text-white px-4 py-2 rounded-lg">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hidden toast">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-check-circle"></i>
+            <span id="toastMessage">Success!</span>
+        </div>
+    </div>
+    
+    <script src="admin2.js"></script>
+</body>
+</html>
