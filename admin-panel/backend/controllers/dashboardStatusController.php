@@ -55,4 +55,18 @@ $totalTimetableData = mysqli_fetch_assoc($totalTimetableResult);
 
 $totalTimetable = $totalTimetableData['total_timetable'];
 
+
+/* ACTIVE PROGRAMS */
+
+$activeProgramQuery = "
+SELECT COUNT(*) AS active_programs
+FROM programs
+WHERE status = 'running'
+";
+
+$activeProgramResult = mysqli_query($conn, $activeProgramQuery);
+$activeProgramData = mysqli_fetch_assoc($activeProgramResult);
+
+$activePrograms = $activeProgramData['active_programs'];
+
 ?>
