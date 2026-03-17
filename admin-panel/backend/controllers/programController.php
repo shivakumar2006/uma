@@ -1,17 +1,18 @@
 <?php
 
 require_once "../config/db.php";
-require_once "../models/SamplePaper.php";
+require_once "../models/Program.php";
 
-$paper = new SamplePaper($conn);
+$program = new Program($conn);
 
 /* CREATE */
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["id"])) {
 
-    $subject = $_POST["subject"];
-    $class_name = $_POST["class_name"];
-    $year = $_POST["year"];
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+    $category = $_POST["category"];
+    $status = $_POST["status"];
 
     $fileName = $_FILES["file"]["name"];
     $tmp = $_FILES["file"]["tmp_name"];
@@ -26,9 +27,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["id"])) {
 
     move_uploaded_file($tmp, "../uploads/" . $newFile);
 
-    $paper->create($subject, $class_name, $year, $newFile);
+    $program->create($title, $description, $category, $status, $newFile);
 
-    header("Location: ../../admin-panel/sample-papers.php?success=1");
+    header("Location: ../../admin-panel/programs.php?success=1");
     exit();
 }
 
@@ -37,9 +38,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["id"])) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
 
     $id = $_POST["id"];
-    $subject = $_POST["subject"];
-    $class_name = $_POST["class_name"];
-    $year = $_POST["year"];
+    $title = $_POST["title"];
+    $description = $_POST["description"];
+    $category = $_POST["category"];
+    $status = $_POST["status"];
 
     $fileName = $_FILES["file"]["name"];
 
@@ -60,9 +62,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
         $newFile = $_POST["old_file"];
     }
 
-    $paper->update($id, $subject, $class_name, $year, $newFile);
+    $program->update($id, $title, $description, $category, $status, $newFile);
 
-    header("Location: ../../admin-panel/sample-papers.php");
+    header("Location: ../../admin-panel/programs.php");
     exit();
 }
 
@@ -72,8 +74,8 @@ if(isset($_GET["delete"])){
 
     $id = $_GET["delete"];
 
-    $paper->delete($id);
+    $program->delete($id);
 
-    header("Location: ../../admin-panel/sample-papers.php");
+    header("Location: ../../admin-panel/programs.php");
     exit();
 }
