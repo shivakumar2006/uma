@@ -8,20 +8,42 @@ class Notice {
         $this->conn = $db;
     }
 
+    // public function create($title, $description, $category, $priority, $file, $posted_by) {
+
+    //     $stmt = $this->conn->prepare(
+    //         "INSERT INTO notices
+    //         (title, description, category, priority, file_path, posted_by)
+    //         VALUES (?, ?, ?, ?, ?, ?)"
+    //     );
+
+    //     $stmt->bind_param("ssssss", $title, $description, $category, $priority, $file, $posted_by);
+
+    //     if($stmt->execute()) {
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
     public function create($title, $description, $category, $priority, $file, $posted_by) {
 
-        $stmt = $this->conn->prepare(
-            "INSERT INTO notices
-            (title, description, category, priority, file_path, posted_by)
-            VALUES (?, ?, ?, ?, ?, ?)"
-        );
+    $stmt = $this->conn->prepare(
+        "INSERT INTO notices
+        (title, description, category, priority, file_path, posted_by)
+        VALUES (?, ?, ?, ?, ?, ?)"
+    );
 
-        $stmt->bind_param("ssssss", $title, $description, $category, $priority, $file, $posted_by);
+    // 🔥 ADD THIS (IMPORTANT)
+    if (!$stmt) {
+        die("Prepare failed: " . $this->conn->error);
+    }
 
-        if($stmt->execute()) {
-            return true;
-        }
-        return false;
+    $stmt->bind_param("ssssss", $title, $description, $category, $priority, $file, $posted_by);
+
+    if (!$stmt->execute()) {
+        die("Execute failed: " . $stmt->error);
+    }
+
+    return true;
     }
 
     public function getAll() {

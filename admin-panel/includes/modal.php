@@ -240,7 +240,7 @@
     </div>
 
 
-<div id="addNoticeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
+<!-- <div id="addNoticeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
         <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
             <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
                 <h3 class="font-bold text-lg text-slate-800" id="modalTitle">Add New Item</h3>
@@ -249,7 +249,7 @@
                 </button>
             </div>
             <div class="p-6" id="modalBody">
-                <!-- Dynamic Content injected here -->
+                 Dynamic Content injected here
                 <form class="space-y-4" onsubmit="handleFormSubmit(event)">
                     <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Title / Subject</label>
@@ -294,7 +294,125 @@
                 </form>
             </div>
         </div>
+    </div> 
+-->
+
+    <div id="addNoticeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
+    <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
+        
+        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+            <h3 class="font-bold text-lg text-slate-800" id="modalTitle">Add New Item</h3>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="p-6" id="modalBody">
+            
+            <!-- <form 
+                action="backend/routes/noticeRoutes.php" 
+                method="POST" 
+                enctype="multipart/form-data"
+                class="space-y-4"
+            > -->
+            <form 
+                action="/uma/admin-panel/backend/routes/noticeRoutes.php"
+                method="POST"
+                enctype="multipart/form-data"
+            >
+
+                <!-- Title -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Title / Subject</label>
+                    <input 
+                        type="text" 
+                        name="title"
+                        class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" 
+                        placeholder="Enter title"
+                        required
+                    >
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Description / Details</label>
+                    <textarea 
+                        name="description"
+                        class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field h-24" 
+                        placeholder="Enter details..." 
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Category + Priority -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Category</label>
+                        <select name="category" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                            <option value="Academic">Academic</option>
+                            <option value="Administrative">Administrative</option>
+                            <option value="Student">Student</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Priority</label>
+                        <select name="priority" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                            <option value="Normal">Normal</option>
+                            <option value="High">High</option>
+                            <option value="Urgent">Urgent</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- File Upload (FIXED) -->
+                <div>
+    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+        Upload File (Optional)
+    </label>
+
+    <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-slate-300 rounded-lg cursor-pointer hover:bg-slate-50 transition">
+
+        <div class="flex flex-col items-center justify-center pt-5 pb-6 text-slate-500">
+            <i class="fas fa-cloud-upload-alt text-2xl mb-2"></i>
+            <p class="text-sm font-semibold">Click to upload or drag & drop</p>
+            <p class="text-xs text-slate-400">PDF, DOC, JPG (Max 5MB)</p>
+        </div>
+
+        <input type="file" name="file" class="hidden" onchange="showFileName(this)">
+    </label>
+
+    <!-- File name preview -->
+    <p id="fileName" class="text-xs text-green-600 mt-2 hidden"></p>
+</div>
+
+                <!-- Hidden Field -->
+                <input type="hidden" name="posted_by" value="Admin">
+
+                <!-- Buttons -->
+                <div class="pt-2 flex justify-end gap-3">
+                    <button 
+                        type="button" 
+                        onclick="closeModal()" 
+                        class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors"
+                    >
+                        Cancel
+                    </button>
+
+                    <button 
+                        type="submit" 
+                        class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow transition-colors flex items-center gap-2"
+                    >
+                        <span id="submitText">Save Changes</span>
+                        <i class="fas fa-spinner fa-spin hidden" id="loadingSpinner"></i>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
+</div>
 
 
 <div id="addTimeTableModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">

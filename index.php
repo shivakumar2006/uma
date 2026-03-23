@@ -6,6 +6,20 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
+
+<?php 
+require_once "admin-panel/backend/config/db.php";
+
+// get latest 5 notices
+$query = "SELECT title, description FROM notices ORDER BY id DESC LIMIT 5";
+$result = mysqli_query($conn, $query);
+?>
+
+<?php 
+require_once "admin-panel/backend/config/db.php";
+$query2 = "SELECT title, description FROM notices ORDER BY id DESC LIMIT 5";
+$result2 = mysqli_query($conn, $query2);
+?>
  
     
     <div class="hero-wrap" style="background-image: url('images/DSC_4285.JPG'); background-attachment:fixed;" loading="lazy" decoding="async">
@@ -73,9 +87,17 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <!-- Marquee Section -->
         <div class="marquee-container">
             <span class="marquee fw-semibold" style="color: #3B82F6;">
-               <a href="#">📢 Notice: School will remain closed on Friday, 15th October due to a scheduled maintenance.</a>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <a href="#">⭐ New! The Annual Sports Meet registration is now open. All students are encouraged to participate.</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-               <a href="#">📅 Reminder: Parent-Teacher meeting is scheduled for 25th October. Please check your email for the detailed schedule.</a>
+
+                <?php while($row = mysqli_fetch_assoc($result)) { ?>
+                
+                    <a href="#">
+                        📢 <?php echo $row['title']; ?>: <?php echo $row['description']; ?>
+                    </a>
+                
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                
+                <?php } ?>
+                
             </span>
         </div>
     </div>
@@ -132,12 +154,28 @@ creativity, and a lifelong love for reading.</p>
 
       <!-- Noticeboard -->
       <div class="col-md-4">
-        <div class="card-custom img">
-          <h5 class="fw-bold text-success icon-notice">NOTICE BOARD</h5>
-          <hr>
-          <p>Spanish Lunch Time Club - Reception, Year 1 and Year 2</p>
-          <p>Spanish After School Club - Years 3, 4, 5 and 6</p>
-        </div>
+          <div class="card-custom img">
+              <h5 class="fw-bold text-success icon-notice">NOTICE BOARD</h5>
+              <hr>
+
+              <?php if(mysqli_num_rows($result2) > 0) { ?>
+              
+                  <?php while($row = mysqli_fetch_assoc($result2)) { ?>
+                  
+                      <p>
+                          <?php echo $row['title']; ?> - 
+                          <?php echo substr($row['description'], 0, 50); ?>...
+                      </p>
+                  
+                  <?php } ?>
+                  
+              <?php } else { ?>
+              
+                  <p>No notices available</p>
+              
+              <?php } ?>
+              
+          </div>
       </div>
 
       <!-- Diary Dates -->
