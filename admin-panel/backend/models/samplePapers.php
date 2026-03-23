@@ -3,8 +3,9 @@
 class SamplePaper {
     private $conn; 
 
-    private function __construct($db);
-    $this->conn = $db;
+    public function __construct($db) {
+        $this->conn = $db;
+    }
 
     public function create($subject, $class_name, $year, $file) {
         $stmt = $this->conn->prepare(
