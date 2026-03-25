@@ -1,18 +1,71 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+include 'includes/header.php';
 
-<div class="flex-1 overflow-y-auto p-6 bg-slate-50" id="content-area">
-            <div id="dashboard" class="section-view active">
+require_once "backend/config/db.php";
+
+/* total notices */
+$totalQuery = "SELECT COUNT(*) AS total_notices FROM notices";
+$totalResult = mysqli_query($conn, $totalQuery);
+$totalData = mysqli_fetch_assoc($totalResult);
+
+$totalNotices = $totalData["total_notices"];
+
+/* notices this week */
+$weekQuery = "
+    SELECT COUNT(*) AS weekly_notices
+    FROM notices 
+    WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
+";
+$weekResult = mysqli_query($conn, $weekQuery);
+$weekData = mysqli_fetch_assoc($weekResult);
+
+$weeklyNotices = $weekData['weekly_notices'];
+
+
+/* TOTAL DAILY DIARIES */
+$totalDiaryQuery = "SELECT COUNT(*) AS total_diaries FROM daily_diary";
+$totalDiaryResult = mysqli_query($conn, $totalDiaryQuery);
+$totalDiaryData = mysqli_fetch_assoc($totalDiaryResult);
+
+$totalDiaries = $totalDiaryData['total_diaries'];
+
+/* DAILY DIARIES THIS MONTH */
+$monthlyDiaryQuery = "
+SELECT COUNT(*) AS monthly_diaries
+FROM daily_diary
+WHERE MONTH(created_at) = MONTH(CURRENT_DATE())
+AND YEAR(created_at) = YEAR(CURRENT_DATE())
+";
+
+$monthlyDiaryResult = mysqli_query($conn, $monthlyDiaryQuery);
+$monthlyDiaryData = mysqli_fetch_assoc($monthlyDiaryResult);
+
+$monthlyDiaries = $monthlyDiaryData['monthly_diaries'];
+?>
+
+<!-- <div class="flex-1 overflow-y-auto p-6 bg-slate-50" id="content-area">
+            <div id="dashboard" class="section-view active"> -->
                 <!-- Stats Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                     <div class="dash-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-indigo-500">
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-xs font-bold text-slate-400 uppercase">Total Notices</p>
-                                <h3 class="text-3xl font-bold text-slate-800 mt-1">12</h3>
+                                <h3 class="text-3xl font-bold text-slate-800 mt-1">
+                                    <?php echo $totalNotices; ?>
+                                </h3>
                             </div>
                             <div class="p-2 bg-indigo-50 rounded-lg text-indigo-600"><i class="fas fa-bullhorn"></i></div>
                         </div>
-                        <p class="text-xs text-green-500 mt-2 font-medium"><i class="fas fa-arrow-up"></i> 2 new this week</p>
+                        <?php if($weeklyNotices > 0) { ?>
+                            <p class="text-xs text-green-500 mt-2 font-medium">
+                                <i class="fas fa-arrow-up"></i> <?php echo $weeklyNotices; ?> new this week
+                            </p>
+                        <?php } else { ?>
+                            <p class="text-xs text-slate-400 mt-2">
+                                No new notices this week
+                            </p>
+                        <?php } ?>
                     </div>
                     <div class="dash-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-green-500">
                         <div class="flex justify-between items-start">
@@ -38,11 +91,21 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-xs font-bold text-slate-400 uppercase">Daily Diary</p>
-                                <h3 class="text-3xl font-bold text-slate-800 mt-1">45</h3>
+                                <h3 class="text-3xl font-bold text-slate-800 mt-1">
+                                    <?php echo $totalDiaries; ?>
+                                </h3>
                             </div>
                             <div class="p-2 bg-purple-50 rounded-lg text-purple-600"><i class="fas fa-calendar-day"></i></div>
                         </div>
-                        <p class="text-xs text-slate-400 mt-2">Entries this month</p>
+                        <?php if($monthlyDiaries > 0) { ?>
+                            <p class="text-xs text-green-500 mt-2 font-medium">
+                                <i class="fas fa-arrow-up"></i> <?php echo $monthlyDiaries; ?> this month
+                            </p>
+                        <?php } else { ?>
+                            <p class="text-xs text-slate-400 mt-2">
+                                No entries this month
+                            </p>
+                        <?php } ?>
                     </div>
                 </div>
 
@@ -76,7 +139,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            <!-- </div> -->
 <script>
     function initChart() {
             const ctx = document.getElementById('analyticsChart');
@@ -87,7 +150,7 @@
                 data: {
                     labels: ['Notices', 'Syllabus', 'Papers', 'Jobs'],
                     datasets: [{
-                        data: [12, 8, 15, 5],
+                        data: [<?php echo $totalNotices; ?>, 8, 15, 5],
                         backgroundColor: [
                             '#4f46e5', // Indigo
                             '#10b981', // Emerald

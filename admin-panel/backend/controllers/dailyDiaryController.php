@@ -16,12 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $event_date = $_POST["event_date"];
     $event_time = $_POST["event_time"];
 
-    $fileName = $_FILES["file"]["name"];
-    $tmp = $_FILES["file"]["tmp_name"];
+    $fileName = "";
 
-    $uploadPath = "../uploads/" . $fileName;
-
-    move_uploaded_file($tmp,$uploadPath);
+    if(isset($_FILES["file"]) && $_FILES["file"]["name"] != ""){
+        $fileName = $_FILES["file"]["name"];
+        $tmp = $_FILES["file"]["tmp_name"];
+        move_uploaded_file($tmp, "../uploads/" . $fileName);
+    }
 
     $result = $diary->create(
         $title,
@@ -36,14 +37,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     );
 
     if($result){
-        header("Location: ../../admin-panel/daily-diary.php?success=1");
+        header("Location: /uma/admin-panel/index.php?page=daily-diary&success=1");
         exit();
     }else{
-        echo "Failed to add diary entry";
+        die("ERROR: " . mysqli_error($conn));
     }
 }
-
-/* DELETE ENTRY */
 
 if(isset($_GET["delete"])){
 
@@ -51,6 +50,6 @@ if(isset($_GET["delete"])){
 
     $diary->delete($id);
 
-    header("Location: ../../admin-panel/daily-diary.php");
+    header("Location: /uma/admin-panel/index.php?page=daily-diary");
     exit();
 }
