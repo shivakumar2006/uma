@@ -182,62 +182,102 @@
 
 
 <div id="addJobModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
-        <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
-            <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
-                <h3 class="font-bold text-lg text-slate-800" id="modalTitle">Post New Job</h3>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="p-6" id="modalBody">
-                <!-- Dynamic Content injected here -->
-                <form class="space-y-4" onsubmit="handleFormSubmit(event)">
+    <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
+        
+        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+            <h3 class="font-bold text-lg text-slate-800">Post New Job</h3>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="p-6">
+            
+            <form 
+                action="/uma/admin-panel/backend/routes/jobRoutes.php"
+                method="POST"
+                enctype="multipart/form-data"
+                class="space-y-4"
+            >
+
+                <!-- TITLE -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Title</label>
+                    <input 
+                        type="text" 
+                        name="title"
+                        value="<?php echo $editData['title'] ?? ''; ?>"
+                        class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field"
+                        placeholder="e.g., Senior Physics Teacher"
+                        required
+                    >
+                </div>
+
+                <!-- DESCRIPTION -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Description / Details</label>
+                    <textarea 
+                        name="description"
+                        class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field h-24"
+                        required
+                    ><?php echo $editData['description'] ?? ''; ?></textarea>
+                </div>
+
+                <!-- CATEGORY + EXPERIENCE -->
+                <div class="grid grid-cols-2 gap-3">
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Title</label>
-                        <input type="text" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" placeholder="e.g., Senior Physics Teacher" required>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Category</label>
+                        <select name="category" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                            <option <?php if(($editData['category'] ?? '') == 'Academic') echo 'selected'; ?>>Academic</option>
+                            <option <?php if(($editData['category'] ?? '') == 'Administrative') echo 'selected'; ?>>Administrative</option>
+                            <option <?php if(($editData['category'] ?? '') == 'Other Staff') echo 'selected'; ?>>Other Staff</option>
+                        </select>
                     </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Description / Details</label>
-                        <textarea class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field h-24" placeholder="Enter details..." required></textarea>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Experience</label>
+                        <select name="experience" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                            <option <?php if(($editData['experience'] ?? '') == 'Fresher') echo 'selected'; ?>>Fresher</option>
+                            <option <?php if(($editData['experience'] ?? '') == 'Experienced 0-1 Years') echo 'selected'; ?>>Experienced 0-1 Years</option>
+                            <option <?php if(($editData['experience'] ?? '') == 'Experienced 1-3 Years') echo 'selected'; ?>>Experienced 1-3 Years</option>
+                            <option <?php if(($editData['experience'] ?? '') == 'Experienced 3-5 Years') echo 'selected'; ?>>Experienced 3-5 Years</option>
+                            <option <?php if(($editData['experience'] ?? '') == 'Experienced 5+ Years') echo 'selected'; ?>>Experienced 5+ Years</option>
+                        </select>
                     </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Category</label>
-                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
-                                <option>Academic</option>
-                                <option>Administrative</option>
-                                <option>Other Staff</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Experience</label>
-                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
-                                <option>Fresher</option>
-                                <option>Experienced 0-1 Years</option>
-                                <option>Experienced 1-3 Years</option>
-                                <option>Experienced 3-5 Years</option>
-                                <option>Experienced 5+ Years</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upload File (Optional)</label>
-                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-500 hover:bg-slate-50 cursor-pointer transition-colors">
-                            <i class="fas fa-cloud-upload-alt text-2xl mb-1"></i><br>
-                            <span class="text-xs">Click to browse</span>
-                        </div>
-                    </div>
-                    <div class="pt-2 flex justify-end gap-3">
-                        <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">Cancel</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow transition-colors flex items-center gap-2">
-                            <span id="submitText">Save Changes</span>
-                            <i class="fas fa-spinner fa-spin hidden" id="loadingSpinner"></i>
-                        </button>
-                    </div>
-                </form>
-            </div>
+
+                </div>
+
+                <!-- FILE -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upload File (Optional)</label>
+                    <input 
+                        type="file" 
+                        name="file"
+                        class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field"
+                    >
+                </div>
+
+                <!-- HIDDEN FIELDS -->
+                <input type="hidden" name="id" value="<?php echo $editData['id'] ?? ''; ?>">
+                <input type="hidden" name="status" value="Active">
+
+                <!-- BUTTONS -->
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+                        Save Changes
+                    </button>
+                </div>
+
+            </form>
+
         </div>
     </div>
+</div>
 
 
 <!-- <div id="addNoticeModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">

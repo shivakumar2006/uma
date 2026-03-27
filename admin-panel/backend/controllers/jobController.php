@@ -6,41 +6,45 @@ require_once "../models/job.php";
 $job = new job($conn);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    $id = $_POST["id"] ?? null; 
     $title = $_POST["title"];
     $description = $_POST["description"];
     $category = $_POST["category"];
     $experience = $_POST["experience"];
     $status = $_POST["status"];
 
-    $fileName = $FILES["file"]["name"];
-    $tmp = $FILES["file"]["tmp_name"];
+    $fileName = "";
 
-    $uploadPath = "../uploads/" . $fileName;
+    if(isset($_FILES["file"]) && $_FILES["file"]["name"] != ""){
+        $fileName = $_FILES["file"]["name"];
+        $tmp = $_FILES["file"]["tmp_name"];
+        move_uploaded_file($tmp, "../uploads/" . $fileName);
+    }
 
-    move_uploaded_file($tmp, $uploadPath);
-
-    $result = $job->create(
-        $title,
-        $description,
-        $category,
-        $experience,
-        $fileName,
-        $status
-    );
+    // ✅ CORRECT LOGIC
+    if($id){
+        // UPDATE
+        $result = $job->update($id, $title, $description, $category, $experience, $fileName, $status);
+    } else {
+        // CREATE
+        $result = $job->create($title, $description, $category, $experience, $fileName, $status);
+    }
 
     if ($result) {
-        header("Location: ../../admin-panel/career.php?success=1");
+        header("Location: /uma/admin-panel/index.php?page=career&success=1");
         exit();
     } else {
-        echo("Failed to create job post");
+        die("DB Error: " . mysqli_error($conn));
     }
 }
 
-// delete job 
+// DELETE
 if (isset($_GET["delete"])) {
-    $id = $_GET["delete"];
+    $id = intval($_GET["delete"]);
     $job->delete($id);
-    header("Location: ../../admin-panel/career.php");
+
+    header("Location: /uma/admin-panel/index.php?page=career");
     exit();
 }
 

@@ -7,16 +7,16 @@ class Job {
         $this->conn = $db;
     }
 
-    public function create($title, $description, $category, $experience, $file, $status){
-        $stmt = $this->conn->prepare(
-            "INSERT INTO jobs (title, description, category, experience, file_path, status)
-            VALUES (?, ?, ?, ?, ?, ?)"
-        );
+   public function create($title, $description, $category, $experience, $file, $status){
+    $stmt = $this->conn->prepare(
+        "INSERT INTO jobs (title, description, category, experience, file_path, status)
+        VALUES (?, ?, ?, ?, ?, ?)"
+    );
 
-        $stmt->bind_param("ssssss", $title, $description, $category, $experience, $file, $status);
+    $stmt->bind_param("ssssss", $title, $description, $category, $experience, $file, $status);
 
-        return $stmt->execute();
-    }
+    return $stmt->execute();
+}
 
     public function getAll() {
         $query = "SELECT * FROM jobs ORDER BY created_at DESC";
@@ -31,12 +31,16 @@ class Job {
         return $stmt->get_result();
     }
 
-    public function update($id, $title, $description, $category, $experience, $file, $status) {
-        $query = "UPDATE jobs SET title = ?, description = ?, category = ?, experience = ?, file_path = ?, status = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bind_param("ssssss", $title, $description, $category, $experience, $file, $status, $id);
-        return $stmt->execute();
-    }
+    public function update($id, $title, $description, $category, $experience, $file, $status){
+    $query = "UPDATE jobs 
+              SET title = ?, description = ?, category = ?, experience = ?, file_path = ?, status = ? 
+              WHERE id = ?";
+
+    $stmt = $this->conn->prepare($query);
+    $stmt->bind_param("ssssssi", $title, $description, $category, $experience, $file, $status, $id);
+
+    return $stmt->execute();
+}
 
     public function delete($id) {
         $query = "DELETE FROM jobs WHERE id = ?";
