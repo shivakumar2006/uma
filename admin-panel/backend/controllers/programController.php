@@ -1,5 +1,4 @@
 <?php
-
 require_once "../config/db.php";
 require_once "../models/Program.php";
 
@@ -14,22 +13,32 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["id"])) {
     $category = $_POST["category"];
     $status = $_POST["status"];
 
-    $fileName = $_FILES["file"]["name"];
-    $tmp = $_FILES["file"]["tmp_name"];
+    $fileName = $_FILES["file"]["name"] ?? '';
 
-    $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    if(!empty($fileName)){
 
-    if($ext !== "pdf"){
-        die("Only PDF allowed");
+        $tmp = $_FILES["file"]["tmp_name"];
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if($ext !== "pdf"){
+            die("Only PDF allowed");
+        }
+
+        $newFile = time() . "_" . $fileName;
+        move_uploaded_file($tmp, "../uploads/" . $newFile);
+
+    } else {
+        $newFile = null; // file optional
     }
 
-    $newFile = time() . "_" . $fileName;
 
-    move_uploaded_file($tmp, "../uploads/" . $newFile);
+    // $newFile = time() . "_" . $fileName;
+
+    // move_uploaded_file($tmp, "../uploads/" . $newFile);
 
     $program->create($title, $description, $category, $status, $newFile);
 
-    header("Location: ../../admin-panel/programs.php?success=1");
+    header("Location: /uma/admin-panel/index.php?page=programs&success=1");
     exit();
 }
 
@@ -64,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
 
     $program->update($id, $title, $description, $category, $status, $newFile);
 
-    header("Location: ../../admin-panel/programs.php");
+    header("Location: /uma/admin-panel/index.php?page=programs&success=1");
     exit();
 }
 
@@ -76,6 +85,6 @@ if(isset($_GET["delete"])){
 
     $program->delete($id);
 
-    header("Location: ../../admin-panel/programs.php");
+    header("Location: /uma/admin-panel/index.php?page=programs&success=1");
     exit();
 }

@@ -64,6 +64,30 @@ $pendingJobsResult = mysqli_query($conn, $pendingJobsQuery);
 $pendingJobsData = mysqli_fetch_assoc($pendingJobsResult);
 
 $pendingJobs = $pendingJobsData['pending_jobs'];
+
+
+// activ programs 
+$activeProgramQuery = "
+SELECT COUNT(*) AS active_programs
+FROM programs
+WHERE status = 'Running'
+";
+
+$activeProgramResult = mysqli_query($conn, $activeProgramQuery);
+$activeProgramData = mysqli_fetch_assoc($activeProgramResult);
+
+$activePrograms = $activeProgramData['active_programs'];
+
+$closedQuery = "
+SELECT COUNT(*) AS closed_programs
+FROM programs
+WHERE status = 'Closed'
+";
+
+$closedResult = mysqli_query($conn, $closedQuery);
+$closedData = mysqli_fetch_assoc($closedResult);
+
+$closedPrograms = $closedData['closed_programs'];
 ?>
 
 <!-- <div class="flex-1 overflow-y-auto p-6 bg-slate-50" id="content-area">
@@ -94,11 +118,16 @@ $pendingJobs = $pendingJobsData['pending_jobs'];
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-xs font-bold text-slate-400 uppercase">Active Programs</p>
-                                <h3 class="text-3xl font-bold text-slate-800 mt-1">8</h3>
+                                <h3 class="text-3xl font-bold text-slate-800 mt-1">
+                                    <?php echo $activePrograms; ?>
+                                </h3>
                             </div>
                             <div class="p-2 bg-green-50 rounded-lg text-green-600"><i class="fas fa-layer-group"></i></div>
                         </div>
-                        <p class="text-xs text-slate-400 mt-2">3 requiring update</p>
+                        <p class="text-xs text-slate-400 mt-2">
+                            <?php echo $closedPrograms; ?> closed programs
+                        </p>
+                        <!-- <p class="text-xs text-slate-400 mt-2">3 requiring update</p> -->
                     </div>
                     <div class="dash-card bg-white p-6 rounded-xl shadow-sm border-l-4 border-yellow-500">
                         <div class="flex justify-between items-start">

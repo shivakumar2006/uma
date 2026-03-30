@@ -134,47 +134,69 @@
             </div>
             <div class="p-6" id="modalBody">
                 <!-- Dynamic Content injected here -->
-                <form class="space-y-4" onsubmit="handleFormSubmit(event)">
+                <form  
+                action="/uma/admin-panel/backend/routes/program.php"
+                method="POST"
+                enctype="multipart/form-data"
+                class="space-y-4"
+                >
                     <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Title</label>
-                        <input type="text" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" placeholder="e.g., Fine Arts" required>
+                        <input type="text" name="title"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field"
+                            placeholder="e.g., Fine Arts" required>
                     </div>
+
                     <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Description / Details</label>
-                        <textarea class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field h-24" placeholder="Enter details..." required></textarea>
+                        <textarea name="description"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field h-24"
+                            placeholder="Enter details..." required></textarea>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
+        
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Category</label>
-                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
-                                <option>Academic</option>
-                                <option>Administrative</option>
-                                <option>Student</option>
+                            <select name="category"
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                                <option value="Academic">Academic</option>
+                                <option value="Administrative">Administrative</option>
+                                <option value="Student">Student</option>
                             </select>
                         </div>
+
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Status</label>
-                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
-                                <option>New</option>
-                                <option>Running</option>
-                                <option>Closed</option>
+                            <select name="status"
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                                <option value="New">New</option>
+                                <option value="Running">Running</option>
+                                <option value="Closed">Closed</option>
                             </select>
                         </div>
+
                     </div>
                     <div>
+                        <div>
                         <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upload File (Optional)</label>
-                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-500 hover:bg-slate-50 cursor-pointer transition-colors">
-                            <i class="fas fa-cloud-upload-alt text-2xl mb-1"></i><br>
-                            <span class="text-xs">Click to browse</span>
-                        </div>
+                        
+                        <input type="file" name="file" accept=".pdf"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                    </div>
+
                     </div>
                     <div class="pt-2 flex justify-end gap-3">
-                        <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">Cancel</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow transition-colors flex items-center gap-2">
-                            <span id="submitText">Save Changes</span>
-                            <i class="fas fa-spinner fa-spin hidden" id="loadingSpinner"></i>
+                        <button type="button" onclick="closeModal()"
+                            class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                            Cancel
+                        </button>
+
+                        <button type="submit"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow">
+                            Save Changes
                         </button>
                     </div>
+
                 </form>
             </div>
         </div>
