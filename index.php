@@ -13,6 +13,9 @@ require_once "admin-panel/backend/config/db.php";
 // get latest 5 notices
 $query = "SELECT title, description FROM notices ORDER BY id DESC LIMIT 5";
 $result = mysqli_query($conn, $query);
+
+$query_daily_diary = "SELECT title, Description, event_date, event_time FROM daily_diary ORDER BY id DESC LIMIT 5";
+$result_daily_diary = mysqli_query($conn, $query_daily_diary);
 ?>
 
 <?php 
@@ -180,46 +183,50 @@ creativity, and a lifelong love for reading.</p>
 
       <!-- Diary Dates -->
       <div class="col-md-6">
-        <div class="card-custom">
-          <h5 class="fw-bold icon-diary">DIARY DATES</h5>
-          <hr>
+  <div class="card-custom">
+    <h5 class="fw-bold icon-diary">DIARY DATES</h5>
+    <hr>
 
-          <!-- Entry 1 -->
-          <div class="d-flex align-items-center mb-3" style="background: rgba(206, 34, 34, 0.8);">
-            <div class="date-box me-3" >
-              <div>24</div>
-              <div>MAR</div>
+    <?php if(mysqli_num_rows($result_daily_diary) > 0) { ?>
+
+        <?php while($row = mysqli_fetch_assoc($result_daily_diary)) { ?>
+
+            <?php 
+                $date = date("d", strtotime($row['event_date']));
+                $month = strtoupper(date("M", strtotime($row['event_date'])));
+            ?>
+
+            <div class="d-flex align-items-center mb-3" style="background: rgba(206, 34, 34, 0.8);">
+                
+                <div class="date-box me-3">
+                    <div><?php echo $date; ?></div>
+                    <div><?php echo $month; ?></div>
+                </div>
+
+                <p class="mb-0 text-white">
+                    <?php echo $row['title']; ?>
+                    (<?php echo date("h:i A", strtotime($row['event_time'])); ?>)
+                </p>
+
             </div>
-            <p class="mb-0 text-white" > Small Steps, Big Change workshops (all day)</p>
-          </div>
 
-          <!-- Entry 2 -->
-          <div class="d-flex align-items-center mb-3" style="background: rgba(210, 220, 11, 0.8);">
-            <div class="date-box me-3">
-              <div>27</div>
-              <div>MAR</div>
-            </div>
-            <p class="mb-0">Robotics Week</p>
-          </div>
+        <?php } ?>
 
-          <!-- Entry 3 -->
-          <div class="d-flex align-items-center mb-3" style="background: rgba(23, 236, 197, 0.8);">
-            <div class="date-box me-3">
-              <div>27</div>
-              <div>MAR</div>
-            </div>
-            <p class="mb-0">Y1/2 Easter Service - Church of the Holy Spirit - Parents welcome: 1.30pm</p>
-          </div>
+    <?php } else { ?>
 
-          <!-- Buttons -->
-          <div class="d-flex gap-2 mt-4">
-            <button class="btn btn-info btn-custom text-white">ALL DATES</button>
-            <button class="btn btn-success btn-custom text-white">TERM DATES</button>
-            <button class="btn btn-primary btn-custom">CALENDAR</button>
-          </div>
+        <p>No diary entries available</p>
 
-        </div>
-      </div>
+    <?php } ?>
+
+    <!-- Buttons -->
+    <div class="d-flex gap-2 mt-4">
+      <button class="btn btn-info btn-custom text-white">ALL DATES</button>
+      <button class="btn btn-success btn-custom text-white">TERM DATES</button>
+      <button class="btn btn-primary btn-custom">CALENDAR</button>
+    </div>
+
+  </div>
+</div>
 
     </div>
   </div>

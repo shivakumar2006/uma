@@ -501,7 +501,7 @@ ini_set('display_errors', 1);
                 class="space-y-4"
             > -->
             <form 
-                action="/uma/admin-panel/backend/routes/dailyDiary.php"
+                action="<?php echo defined('BASE_URL') ? BASE_URL : '/admin-panel/'; ?>backend/routes/dailyDiary.php"
                 method="POST"
                 enctype="multipart/form-data"
             >
