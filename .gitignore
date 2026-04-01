@@ -18,3 +18,4 @@ build/
 .phpunit.result.cache
 .phpstan.cache
 composer.lock
+*.env

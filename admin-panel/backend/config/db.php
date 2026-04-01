@@ -1,9 +1,11 @@
 <?php
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$database = "school_db";
+require_once __DIR__ . "/../../config/env.php";
+
+$host = $_ENV['DB_HOST'] ?? 'localhost'; 
+$user = $_ENV['DB_USER'] ?? 'root'; 
+$password = $_ENV['DB_PASSWORD'] ?? "";
+$database = $_ENV['DB_NAME'] ?? "";
 
 $conn = mysqli_connect($host, $user, $password, $database);
 
