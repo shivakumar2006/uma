@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["id"])) {
 
     $paper->create($subject, $class_name, $year, $newFile);
 
-    header("Location: ../../admin-panel/sample-papers.php?success=1");
+    header("Location: /uma/admin-panel/index.php?page=sample-papers&success=1");
     exit();
 }
 
@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
 
     $paper->update($id, $subject, $class_name, $year, $newFile);
 
-    header("Location: ../../admin-panel/sample-papers.php");
+    header("Location: /uma/admin-panel/index.php?page=sample-papers&success=1");
     exit();
 }
 
@@ -74,6 +74,6 @@ if(isset($_GET["delete"])){
 
     $paper->delete($id);
 
-    header("Location: ../../admin-panel/sample-papers.php");
+    header("Location: /uma/admin-panel/index.php?page=sample-papers&success=1");
     exit();
 }

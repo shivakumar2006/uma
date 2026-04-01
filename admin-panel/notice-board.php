@@ -1,6 +1,6 @@
 <?php include "includes/header.php"; ?>
-
 <?php 
+require_once "config/app.php";
 require_once "backend/config/db.php";
 
 $query = "SELECT * FROM notices ORDER BY id DESC";
@@ -58,13 +58,13 @@ $result = mysqli_query($conn, $query);
                 <span><i class="fas fa-user"></i> <?php echo $row['posted_by']; ?></span>
 
                 <?php if(!empty($row['file_path'])) { ?>
-                    <a href="/uma/uploads/<?php echo $row['file_path']; ?>" target="_blank" class="text-blue-500 underline">
+                    <a href="<?php echo BASE_URL; ?>backend/uploads/<?php echo $row['file_path']; ?>" target="_blank" class="text-blue-500 underline">
                         View File
                     </a>
                 <?php } ?>
             </div>
             <a 
-                href="/uma/admin-panel/backend/routes/deleteNotice.php?id=<?php echo $row['id']; ?>" 
+                href="<?php echo BASE_URL; ?>backend/routes/deleteNotice.php?id=<?php echo $row['id']; ?>" 
                 onclick="return confirm('Are you sure you want to delete this notice?')"
                 class="text-red-500 hover:text-red-700 font-semibold"
             >
@@ -88,7 +88,12 @@ $result = mysqli_query($conn, $query);
 
 <script>
 function openModal(id) {
-    document.getElementById(id).classList.remove("hidden");
+    const modal = document.getElementById(id);
+    if(modal){
+        modal.classList.remove("hidden");
+    } else {
+        console.log("Modal not found:", id);
+    }
 }
 
 function closeModal() {
