@@ -2,6 +2,7 @@
 include "includes/header.php";
 
 require_once "backend/config/db.php";
+require_once "config/app.php";
 require_once "backend/models/job.php";
 
 $job = new job($conn);
@@ -84,7 +85,7 @@ if(isset($_GET['edit'])){
 </a> -->
 
                 <!-- DELETE -->
-                <a href="backend/routes/jobRoutes.php?delete=<?php echo $row['id']; ?>"
+                <a href="<?php echo BASE_URL; ?>backend/routes/jobRoutes.php?delete=<?php echo $row['id']; ?>"
                    onclick="return confirm('Are you sure you want to delete this job?')"
                    class="text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm">
                    Close

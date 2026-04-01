@@ -222,7 +222,7 @@ ini_set('display_errors', 1);
         <div class="p-6">
             
             <form 
-                action="/uma/admin-panel/backend/routes/jobRoutes.php"
+                action="<?php echo defined('BASE_URL') ? BASE_URL : '/admin-panel/'; ?>backend/routes/jobRoutes.php"
                 method="POST"
                 enctype="multipart/form-data"
                 class="space-y-4"
