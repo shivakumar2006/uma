@@ -2,6 +2,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once "backend/config/db.php";
+require_once "config/app.php";
 require_once "backend/models/Program.php";
 
 $program = new Program($conn);
@@ -88,7 +89,7 @@ $programs = $program->getAll();
                     </a> -->
 
                     <!-- DELETE -->
-                    <a href="backend/controllers/programController.php?delete=<?php echo $row['id']; ?>" 
+                    <a href="<?php echo BASE_URL; ?>backend/controllers/programController.php?delete=<?php echo $row['id']; ?>" 
                        class="text-xs text-red-600 hover:underline font-medium"
                        onclick="return confirm('Are you sure you want to delete this program?')">
                        Remove
@@ -119,7 +120,12 @@ $programs = $program->getAll();
 <!-- MODALS -->
 <script>
 function openModal(id) {
-    document.getElementById(id).classList.remove("hidden");
+    const modal = document.getElementById(id);
+    if(modal){
+        modal.classList.remove("hidden");
+    } else {
+        console.log("Modal not found:", id);
+    }
 }
 
 function closeModal() {

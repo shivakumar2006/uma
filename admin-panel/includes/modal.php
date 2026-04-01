@@ -141,7 +141,7 @@ ini_set('display_errors', 1);
             <div class="p-6" id="modalBody">
                 <!-- Dynamic Content injected here -->
                 <form  
-                action="/uma/admin-panel/backend/routes/program.php"
+                action="<?php echo BASE_URL; ?>backend/routes/program.php"
                 method="POST"
                 enctype="multipart/form-data"
                 class="space-y-4"
@@ -222,7 +222,7 @@ ini_set('display_errors', 1);
         <div class="p-6">
             
             <form 
-                action="<?php echo defined('BASE_URL') ? BASE_URL : '/admin-panel/'; ?>backend/routes/jobRoutes.php"
+                action="<?php echo BASE_URL; ?>backend/routes/jobRoutes.php"
                 method="POST"
                 enctype="multipart/form-data"
                 class="space-y-4"
@@ -384,7 +384,7 @@ ini_set('display_errors', 1);
                 class="space-y-4"
             > -->
             <form 
-                action="<?php echo defined('BASE_URL') ? BASE_URL : '/admin-panel/'; ?>backend/routes/noticeRoutes.php"
+                action="<?php echo BASE_URL; ?>backend/routes/noticeRoutes.php"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -501,7 +501,7 @@ ini_set('display_errors', 1);
                 class="space-y-4"
             > -->
             <form 
-                action="<?php echo defined('BASE_URL') ? BASE_URL : '/admin-panel/'; ?>backend/routes/dailyDiary.php"
+                action="<?php echo BASE_URL; ?>backend/routes/dailyDiary.php"
                 method="POST"
                 enctype="multipart/form-data"
             >
