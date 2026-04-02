@@ -1,7 +1,8 @@
 <?php
 
 require_once "../config/db.php";
-require_once "../models/SamplePaper.php";
+require_once __DIR__ . "/../../config/app.php";
+require_once "../models/samplePapers.php";
 
 $paper = new SamplePaper($conn);
 
@@ -28,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !isset($_POST["id"])) {
 
     $paper->create($subject, $class_name, $year, $newFile);
 
-    header("Location: /uma/admin-panel/index.php?page=sample-papers&success=1");
+    header("Location: " . BASE_URL . "index.php?page=sample-papers&success=1");
     exit();
 }
 
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
 
     $paper->update($id, $subject, $class_name, $year, $newFile);
 
-    header("Location: /uma/admin-panel/index.php?page=sample-papers&success=1");
+    header("Location: " . BASE_URL . "index.php?page=sample-papers&success=1");
     exit();
 }
 
@@ -74,6 +75,6 @@ if(isset($_GET["delete"])){
 
     $paper->delete($id);
 
-    header("Location: /uma/admin-panel/index.php?page=sample-papers&success=1");
+    header("Location: " . BASE_URL . "index.php?page=sample-papers&success=1");
     exit();
 }

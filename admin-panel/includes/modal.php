@@ -756,7 +756,7 @@ ini_set('display_errors', 1);
             <div class="p-6" id="modalBody">
                 <!-- Dynamic Content injected here -->
                 <form 
-                action="/uma/admin-panel/backend/routes/samplePaperRoutes.php"
+                action="<?php echo BASE_URL; ?>backend/routes/samplePaperRoutes.php"
                 method="POST"
                 enctype="multipart/form-data" 
                 class="space-y-4"

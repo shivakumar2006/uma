@@ -1,5 +1,8 @@
 <?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 include "includes/header.php";
+require_once __DIR__ . "/config/app.php";
 require_once "backend/config/db.php";
 
 $query = "SELECT * FROM sample_papers ORDER BY id DESC";
@@ -54,7 +57,7 @@ $result = mysqli_query($conn, $query);
 
                             <td class="p-4">
                                 <a 
-                                    href="/uma/admin-panel/backend/uploads/<?php echo $row['file_path']; ?>" 
+                                    href="<?php echo BASE_URL; ?>backend/uploads/<?php echo $row['file_path']; ?>" 
                                     target="_blank"
                                     class="text-indigo-600 hover:underline"
                                 >
@@ -65,13 +68,13 @@ $result = mysqli_query($conn, $query);
                             <td class="p-4 text-right space-x-2">
 
                                 <!-- EDIT (for future use) -->
-                                <button class="text-blue-500 hover:text-blue-700">
+                                <!-- <button class="text-blue-500 hover:text-blue-700">
                                     <i class="fas fa-edit"></i>
-                                </button>
+                                </button> -->
 
                                 <!-- DELETE -->
                                 <a 
-                                    href="backend/routes/samplePaperRoutes.php?delete=<?php echo $row['id']; ?>"
+                                    href="<?php echo BASE_URL; ?>backend/routes/samplePaperRoutes.php?delete=<?php echo $row['id']; ?>"
                                     onclick="return confirm('Are you sure you want to delete this paper?')"
                                     class="text-red-500 hover:text-red-700"
                                 >
@@ -102,7 +105,12 @@ $result = mysqli_query($conn, $query);
 
 <script>
 function openModal(id) {
-    document.getElementById(id).classList.remove("hidden");
+    const modal = document.getElementById(id);
+    if(modal){
+        modal.classList.remove("hidden");
+    } else {
+        console.log("Modal not found:", id);
+    }
 }
 
 function closeModal() {
