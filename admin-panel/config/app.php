@@ -1,7 +1,12 @@
 <?php
 
-$isLocal = in_array($_SERVER['SERVER_NAME'], ['localhost', '127.0.0.1']);
+$protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https://" : "http://";
+$host = $_SERVER['HTTP_HOST'];
 
-define("BASE_URL", $isLocal ? "/uma/admin-panel/" : "/admin-panel/");
+// detect current script path 
+$scriptName = dirname($_SERVER['SCRIPT_NAME']);
 
-?>
+// normalize (remove trailing slash)
+$basePath = rtrim($scriptName, '/');
+
+define("BASE_URL", $protocol . $host . $basePath . "/");

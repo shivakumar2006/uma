@@ -478,7 +478,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </div>
 
                 <!-- Button -->
-                <button type="submit" onclick="window.location.href='https://vmsacademy.com/en/1225/10359'"
+                <button type="button" onclick="window.location.href='https://vmsacademy.com/en/1225/10359'"
                   style="background:#167ce9; color:#fff; width:100%; padding:12px; font-size:18px; border:none; cursor:pointer;">
                   Apply Now
                 </button>

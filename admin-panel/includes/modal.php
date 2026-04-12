@@ -689,61 +689,114 @@ ini_set('display_errors', 1);
     </div>
 
 <div id="addSyllabusModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
-        <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
-            <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
-                <h3 class="font-bold text-lg text-slate-800" id="modalTitle">Add New Sample Paper</h3>
-                <button onclick="closeModal()" class="text-slate-400 hover:text-red-500 transition-colors">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="p-6" id="modalBody">
-                <!-- Dynamic Content injected here -->
-                <form class="space-y-4" onsubmit="handleFormSubmit(event)">
+    <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
+        
+        <div class="bg-slate-50 px-6 py-4 border-b border-slate-200 flex justify-between items-center">
+            <h3 class="font-bold text-lg text-slate-800">Add New Syllabus</h3>
+            <button onclick="closeModal()" class="text-slate-400 hover:text-red-500">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="p-6">
+
+            <form 
+                action="<?php echo BASE_URL; ?>backend/routes/syllabus.php"
+                method="POST"
+                enctype="multipart/form-data"
+                class="space-y-4"
+            >
+
+                <!-- SUBJECT -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Subject</label>
+                    <input 
+                        type="text" 
+                        name="subject"
+                        class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" 
+                        placeholder="e.g., Physics" 
+                        required
+                    >
+                </div>
+
+                <!-- CLASS + YEAR -->
+                <div class="grid grid-cols-2 gap-3">
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Subject</label>
-                        <input type="text" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" placeholder="e.g., Physics Sample Paper" required>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Class</label>
+                        <select 
+                            name="class_name"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field"
+                        >
+                            <option value="Class 1">Class 1</option>
+                            <option value="Class 2">Class 2</option>
+                            <option value="Class 3">Class 3</option>
+                            <option value="Class 4">Class 4</option>
+                            <option value="Class 5">Class 5</option>
+                            <option value="Class 6">Class 6</option>
+                            <option value="Class 7">Class 7</option>
+                            <option value="Class 8">Class 8</option>
+                            <option value="Class 9">Class 9</option>
+                            <option value="Class 10">Class 10</option>
+                            <option value="Class 11">Class 11</option>
+                            <option value="Class 12">Class 12</option>
+                        </select>
                     </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Class</label>
-                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
-                                <option>Class 1</option>
-                                <option>Class 2</option>
-                                <option>Class 3</option>
-                                <option>Class 4</option>
-                                <option>Class 5</option>
-                                <option>Class 6</option>
-                                <option>Class 7</option>
-                                <option>Class 8</option>
-                                <option>Class 9</option>
-                                <option>Class 10</option>
-                                <option>Class 11</option>
-                                <option>Class 12</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Year</label>
-                            <input type="text" class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" placeholder="e.g., 2023" required>
-                        </div>
-                    </div>
+
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upload File (Optional)</label>
-                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-500 hover:bg-slate-50 cursor-pointer transition-colors">
-                            <i class="fas fa-cloud-upload-alt text-2xl mb-1"></i><br>
-                            <span class="text-xs">Click to browse</span>
-                        </div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Year</label>
+                        <input 
+                            type="text" 
+                            name="year"
+                            class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field" 
+                            placeholder="e.g., 2023" 
+                            required
+                        >
                     </div>
-                    <div class="pt-2 flex justify-end gap-3">
-                        <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">Cancel</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow transition-colors flex items-center gap-2">
-                            <span id="submitText">Save Changes</span>
-                            <i class="fas fa-spinner fa-spin hidden" id="loadingSpinner"></i>
-                        </button>
+
+                </div>
+
+                <!-- FILE UPLOAD -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                        Upload File (PDF Only)
+                    </label>
+
+                    <!-- Hidden real input -->
+                    <input 
+                        type="file" 
+                        name="file" 
+                        id="syllabusFileInput"
+                        accept="application/pdf"
+                        class="hidden"
+                    >
+
+                    <!-- UI box -->
+                    <div 
+                        onclick="document.getElementById('syllabusFileInput').click()" 
+                        class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-500 hover:bg-slate-50 cursor-pointer"
+                    >
+                        <i class="fas fa-cloud-upload-alt text-2xl mb-1"></i><br>
+                        <span class="text-xs" id="syllabusFileText">Click to upload PDF</span>
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <!-- BUTTONS -->
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                        Cancel
+                    </button>
+
+                    <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow">
+                        Save Changes
+                    </button>
+                </div>
+
+            </form>
+
         </div>
     </div>
+</div>
 
 <div id="addPaperModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
         <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">

@@ -1,54 +1,80 @@
 <?php
 
 require_once "../config/db.php";
+require_once __DIR__ . "/../../config/app.php";
 require_once "../models/syllabus.php";
 
-$syllabus =  new Syllabus($conn);
+$syllabus = new Syllabus($conn);
 
-// upload syllabus 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
     $subject = $_POST["subject"];
     $class_name = $_POST["class_name"];
     $year = $_POST["year"];
+
     $fileName = $_FILES["file"]["name"];
     $tmp = $_FILES["file"]["tmp_name"];
 
-    $ext = pathinfo($fileName, PATHINFO_EXTENSION);
+    // ✅ File validation
+    $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
     if ($ext !== "pdf") {
-        die("Only pdf file allowed");
+        die("Only PDF file allowed");
     }
 
-    $newFileName = time() . "_" . $fileName; 
+    // ✅ Unique filename
+    $newFileName = time() . "_" . $fileName;
 
-    $uploadPath = "../uploads/" . $newFileName;
+    $uploadDir = __DIR__ . "/../uploads/";
 
-    move_uploaded_file($tmp, $uploadPath);
-
-    $result = $syllabus->upload($subject, $class_name, $year, $newFileName);
-
-    if ($result) {
-        header("Location: ../../admin-panel/syllabus.php");
-        exit();
-    } else {
-        echo "failed to upload syllabus";
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
     }
-}
+    
+    $newFileName = time() . "_" . $_FILES["file"]["name"];
+    $uploadPath = $uploadDir . $newFileName;
+    
+    if (!move_uploaded_file($_FILES["file"]["tmp_name"], $uploadPath)) {
+        die("File upload failed");
+    }
+    
+        // ✅ Save in DB
+        $result = $syllabus->upload($subject, $class_name, $year, $newFileName);
+    
+        if ($result) {
+            header("Location: " . BASE_URL . "index.php?page=syllabus&success=1");
+            exit();
+        } else {
+            echo "Failed to upload syllabus";
+        }
+    }
 
-// delete 
-if (isset($_GET["delete"])){
+
+if (isset($_GET["delete"])) {
+
     $id = $_GET["delete"];
 
-    $syllabus->delete($id);
+    // ✅ Get file name from DB first
+    $stmt = $conn->prepare("SELECT file_path FROM syllabus WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $row = $res->fetch_assoc();
 
-    $filePath = "../uploads/" . $fileName;
-    if (file_exists($filePath)) {
-        unlink($filePath);
+    if ($row) {
+
+        $filePath = "../uploads/" . $row['file_path'];
+
+        // ✅ Delete file from folder
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        // ✅ Delete from DB
+        $syllabus->delete($id);
     }
 
-    header("Location: ../../admin-panel/syllabus.php");
+    header("Location: " . BASE_URL . "index.php?page=syllabus&success=1");
     exit();
 }
-
-?>

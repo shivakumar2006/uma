@@ -1,4 +1,14 @@
-<?php include "includes/header.php"; ?>
+<?php 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+require_once __DIR__ . "/backend/config/db.php";
+require_once __DIR__ . "/config/app.php";
+include "includes/header.php"; 
+
+$query = "SELECT * FROM syllabus ORDER BY id DESC";
+$result = mysqli_query($conn, $query);
+
+?>
 <div class="flex justify-between items-center mb-6">
     <div>
         <p class="text-slate-500 text-sm">Academics / Curriculum</p>
@@ -14,51 +24,66 @@
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-    <!-- Item 1 -->
-    <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-3">
-        <div class="flex items-center gap-3">
-            <div class="h-10 w-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                <i class="fas fa-book"></i>
+<?php if(mysqli_num_rows($result) > 0){ ?>
+
+    <?php while($row = mysqli_fetch_assoc($result)){ ?>
+
+        <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-3">
+
+            <div class="flex items-center gap-3">
+                <div class="h-10 w-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                    <i class="fas fa-book"></i>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-slate-800">
+                        <?php echo $row['class_name']; ?> - <?php echo $row['subject']; ?>
+                    </h4>
+
+                    <p class="text-xs text-slate-500">
+                        <?php echo date("M d, Y", strtotime($row['created_at'])); ?>
+                    </p>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold text-slate-800">Class 9 - Full Syllabus</h4>
-                <p class="text-xs text-slate-500">Updated: 2 days ago</p>
+
+            <!-- FILE INFO -->
+            <div class="flex justify-between text-xs text-slate-500">
+
+                <span>PDF</span>
+
+                <!-- PREVIEW -->
+                <a 
+                    href="<?php echo BASE_URL; ?>backend/uploads/<?php echo $row['file_path']; ?>" 
+                    target="_blank"
+                    class="text-blue-600 font-medium hover:underline"
+                >
+                    Preview
+                </a>
+
             </div>
+
+            <!-- ACTIONS -->
+            <div class="flex justify-end">
+
+                <a 
+                    href="<?php echo BASE_URL; ?>backend/controllers/syllabusController.php?delete=<?php echo $row['id']; ?>"
+                    onclick="return confirm('Delete this syllabus?')"
+                    class="text-red-500 text-sm hover:underline"
+                >
+                    Delete
+                </a>
+
+            </div>
+
         </div>
 
-        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-            <div class="bg-blue-600 h-full w-3/4"></div>
-        </div>
+    <?php } ?>
 
-        <div class="flex justify-between text-xs text-slate-500">
-            <span>PDF • 4.2 MB</span>
-            <span class="text-blue-600 font-medium cursor-pointer hover:underline">
-                Preview
-            </span>
-        </div>
-    </div>
+<?php } else { ?>
 
-    <!-- Item 2 -->
-     <div class="bg-white p-5 rounded-xl shadow-sm border border-slate-100 flex flex-col gap-3">
-        <div class="flex items-center gap-3">
-            <div class="h-10 w-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center">
-                <i class="fas fa-book-open"></i>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-800">Class 12 - Commerce</h4>
-                <p class="text-xs text-slate-500">Updated: 1 week ago</p>
-            </div>
-        </div>
-        <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-            <div class="bg-purple-600 h-full w-1/2"></div>
-        </div>
-        <div class="flex justify-between text-xs text-slate-500">
-            <span>PDF • 2.8 MB</span>
-            <span class="text-purple-600 font-medium cursor-pointer hover:underline">
-                Preview
-            </span>
-        </div>
-    </div>
+    <p class="text-gray-500">No syllabus uploaded</p>
+
+<?php } ?>
 
 </div>
 <script>
@@ -69,5 +94,17 @@ function openModal(id) {
 function closeModal() {
     document.getElementById("addSyllabusModal").classList.add("hidden");
 }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.getElementById("syllabusFileInput");
+
+    if(fileInput){
+        fileInput.addEventListener("change", function() {
+            const fileName = this.files[0]?.name || "Click to upload PDF";
+            document.getElementById("syllabusFileText").innerText = fileName;
+        });
+    }
+});
 </script>
 <?php include "includes/modal.php"; ?>

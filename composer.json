@@ -3,7 +3,8 @@
   "description": "School website project",
   "type": "project",
   "require": {
-    "php": ">=7.4"
+    "php": ">=7.4",
+    "firebase/php-jwt": "^7.0"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.7",
