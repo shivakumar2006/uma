@@ -89,7 +89,7 @@ $programs = $program->getAll();
                     </a> -->
 
                     <!-- DELETE -->
-                    <a href="<?php echo BASE_URL; ?>backend/controllers/programController.php?delete=<?php echo $row['id']; ?>" 
+                    <a href="<?php echo BASE_URL; ?>admin-panel/backend/controllers/programController.php?delete=<?php echo $row['id']; ?>" 
                        class="text-xs text-red-600 hover:underline font-medium"
                        onclick="return confirm('Are you sure you want to delete this program?')">
                        Remove

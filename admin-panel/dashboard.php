@@ -88,6 +88,19 @@ $closedResult = mysqli_query($conn, $closedQuery);
 $closedData = mysqli_fetch_assoc($closedResult);
 
 $closedPrograms = $closedData['closed_programs'];
+
+
+// TOTAL SAMPLE PAPERS
+$paperQuery = "SELECT COUNT(*) AS total_papers FROM sample_papers";
+$paperResult = mysqli_query($conn, $paperQuery);
+$paperData = mysqli_fetch_assoc($paperResult);
+$totalPapers = $paperData['total_papers'];
+
+// TOTAL SYLLABUS
+$syllabusQuery = "SELECT COUNT(*) AS total_syllabus FROM syllabus";
+$syllabusResult = mysqli_query($conn, $syllabusQuery);
+$syllabusData = mysqli_fetch_assoc($syllabusResult);
+$totalSyllabus = $syllabusData['total_syllabus'];
 ?>
 
 <!-- <div class="flex-1 overflow-y-auto p-6 bg-slate-50" id="content-area">
@@ -212,7 +225,7 @@ $closedPrograms = $closedData['closed_programs'];
                 data: {
                     labels: ['Notices', 'Syllabus', 'Papers', 'Jobs'],
                     datasets: [{
-                        data: [<?php echo $totalNotices; ?>, 8, 15, <?php echo $totalJobs; ?>],
+                        data: [<?php echo $totalNotices; ?>, <?php echo $totalSyllabus; ?>, <?php echo $totalPapers; ?>, <?php echo $totalJobs; ?>],
                         backgroundColor: [
                             '#4f46e5', // Indigo
                             '#10b981', // Emerald

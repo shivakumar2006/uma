@@ -6,186 +6,209 @@ include "includes/header.php";
 
 require_once "backend/config/db.php";
 require_once "backend/models/admission.php";
+
 $admission = new Admission($conn);
 $result = $admission->getAll();
-
 ?>
+
 <div class="flex justify-between items-center mb-6">
     <div>
         <p class="text-slate-500 text-sm">Others</p>
-        <h3 class="text-2xl font-bold text-slate-800">
-            Admission Forms
-        </h3>
-        <p class="text-slate-500 text-sm">Review and manage admission applications</p>
+        <h3 class="text-2xl font-bold text-slate-800">Admission Forms</h3>
     </div>
 </div>
-                        
 
 <div class="card p-6 mb-6">
     <div class="tabs">
-        <div class="tab active" onclick="switchTab(event, 'admission-pending')">Pending</div>
-        <div class="tab" onclick="switchTab(event, 'admission-approved')">Approved</div>
-        <div class="tab" onclick="switchTab(event, 'admission-rejected')">Rejected</div>
+        <div class="tab active" onclick="switchTab(event, 'pending')">Pending</div>
+        <div class="tab" onclick="switchTab(event, 'approved')">Approved</div>
+        <div class="tab" onclick="switchTab(event, 'rejected')">Rejected</div>
     </div>
 
-    <!-- ✅ PENDING -->
-    <div id="admission-pending" class="tab-content active">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="p-3 text-left">Name</th>
-                        <th class="p-3 text-left">Class</th>
-                        <th class="p-3 text-left">Date</th>
-                        <th class="p-3 text-left">Status</th>
-                        <th class="p-3 text-left">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    $found = false;
-                    while($row = mysqli_fetch_assoc($result)) { 
-                        if($row['status'] == 'pending') { 
-                            $found = true;
-                    ?>
-                    <tr class="border-b">
-                        <td class="p-3"><?= $row['child_name'] ?></td>
-                        <td class="p-3"><?= $row['class'] ?></td>
-                        <td class="p-3"><?= $row['admission_date'] ?></td>
-                        <td class="p-3">
-                            <span class="badge badge-warning">Under Review</span>
-                        </td>
-                        <td class="p-3">
-                            <form method="POST" action="../backend/admission.php?action=update_status">
-                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                <button name="status" value="approved" class="text-green-600 text-sm">Approve</button>
-                                <button name="status" value="rejected" class="text-red-600 text-sm">Reject</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <?php } } ?>
-
-                    <?php if(!$found) { ?>
-                    <tr>
-                        <td colspan="5" class="p-3 text-center text-gray-500">
-                            No Pending Admissions Found
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
+    <!-- PENDING -->
+    <div id="pending" class="tab-content active">
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php while($row = mysqli_fetch_assoc($result)) { 
+                    if($row['status'] == 'pending') { ?>
+                <tr>
+                    <td><?= $row['child_name'] ?></td>
+                    <td><?= $row['class'] ?></td>
+                    <td><?= $row['admission_date'] ?></td>
+                    <td>
+                        <button onclick='openModalData(<?= json_encode($row) ?>)' 
+                        class="text-blue-600">View</button>
+                    </td>
+                </tr>
+                <?php }} ?>
+            </tbody>
+        </table>
     </div>
 
-    <!-- ✅ APPROVED -->
-    <div id="admission-approved" class="tab-content">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="p-3 text-left">Name</th>
-                        <th class="p-3 text-left">Class</th>
-                        <th class="p-3 text-left">Approved Date</th>
-                        <th class="p-3 text-left">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    mysqli_data_seek($result, 0);
-                    $found = false;
-
-                    while($row = mysqli_fetch_assoc($result)) { 
-                        if($row['status'] == 'approved') { 
-                            $found = true;
-                    ?>
-                    <tr class="border-b">
-                        <td class="p-3"><?= $row['child_name'] ?></td>
-                        <td class="p-3"><?= $row['class'] ?></td>
-                        <td class="p-3"><?= $row['admission_date'] ?></td>
-                        <td class="p-3">
-                            <button class="text-blue-600 text-sm font-semibold">View</button>
-                        </td>
-                    </tr>
-                    <?php } } ?>
-
-                    <?php if(!$found) { ?>
-                    <tr>
-                        <td colspan="4" class="p-3 text-center text-gray-500">
-                            No Approved Admissions Found
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
+    <!-- APPROVED -->
+    <div id="approved" class="tab-content">
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php 
+                mysqli_data_seek($result, 0);
+                while($row = mysqli_fetch_assoc($result)) { 
+                    if($row['status'] == 'approved') { ?>
+                <tr>
+                    <td><?= $row['child_name'] ?></td>
+                    <td><?= $row['class'] ?></td>
+                    <td><?= $row['admission_date'] ?></td>
+                    <td>
+                        <button onclick='openModalData(<?= json_encode($row) ?>)' 
+                            class="text-blue-600 font-semibold">
+                            View
+                        </button>
+                    </td>
+                </tr>
+                <?php }} ?>
+            </tbody>
+        </table>
     </div>
 
-    <!-- ✅ REJECTED -->
-    <div id="admission-rejected" class="tab-content">
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead>
-                    <tr class="bg-gray-100">
-                        <th class="p-3 text-left">Name</th>
-                        <th class="p-3 text-left">Class</th>
-                        <th class="p-3 text-left">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php 
-                    mysqli_data_seek($result, 0);
-                    $found = false;
-
-                    while($row = mysqli_fetch_assoc($result)) { 
-                        if($row['status'] == 'rejected') { 
-                            $found = true;
-                    ?>
-                    <tr class="border-b">
-                        <td class="p-3"><?= $row['child_name'] ?></td>
-                        <td class="p-3"><?= $row['class'] ?></td>
-                        <td class="p-3"><?= $row['admission_date'] ?></td>
-                    </tr>
-                    <?php } } ?>
-
-                    <?php if(!$found) { ?>
-                    <tr>
-                        <td colspan="3" class="p-3 text-center text-gray-500">
-                            No Rejected Admissions Found
-                        </td>
-                    </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-        </div>
+    <!-- REJECTED -->
+    <div id="rejected" class="tab-content">
+    <table class="w-full">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+                <?php 
+                mysqli_data_seek($result, 0);
+                while($row = mysqli_fetch_assoc($result)) { 
+                    if($row['status'] == 'rejected') { ?>
+                <tr>
+                    <td><?= $row['child_name'] ?></td>
+                    <td><?= $row['class'] ?></td>
+                    <td><?= $row['admission_date'] ?></td>
+                    <td>
+                        <button onclick='openModalData(<?= json_encode($row) ?>)' 
+                            class="text-blue-600 font-semibold">
+                            View
+                        </button>
+                    </td>
+                </tr>
+                <?php }} ?>
+            </tbody>
+        </table>
     </div>
 </div>
+
+<!-- 🔥 MODAL -->
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+    
+    <div class="bg-white rounded-2xl shadow-xl w-[420px] p-6 relative animate-fadeIn">
+
+        <!-- Header -->
+        <div class="flex justify-between items-center border-b pb-3 mb-4">
+            <h2 class="text-xl font-semibold text-gray-800">📄 Admission Details</h2>
+            <button onclick="closeModal()" class="text-gray-500 hover:text-black text-lg">✕</button>
+        </div>
+
+        <!-- Content -->
+        <div id="modalContent" class="space-y-3 text-sm text-gray-700"></div>
+
+        <!-- Actions -->
+        <form method="POST" action="backend/controllers/admissionController.php?action=update_status">
+            <input type="hidden" name="id" id="modalId">
+
+            <div class="flex gap-3 mt-6">
+                <button name="status" value="approved"
+                    class="flex-1 bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg transition">
+                    Approve
+                </button>
+
+                <button name="status" value="rejected"
+                    class="flex-1 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition">
+                    Reject
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
 <script>
-function openModal(id) {
-    document.getElementById(id).classList.remove("hidden");
+function openModalData(data) {
+    document.getElementById("modal").classList.remove("hidden");
+
+    document.getElementById("modalContent").innerHTML = `
+        <div class="grid grid-cols-2 gap-3">
+
+            <div class="bg-gray-100 p-2 rounded">
+                <p class="text-gray-500 text-xs">Child Name</p>
+                <p class="font-medium">${data.child_name}</p>
+            </div>
+
+            <div class="bg-gray-100 p-2 rounded">
+                <p class="text-gray-500 text-xs">Class</p>
+                <p class="font-medium">${data.class}</p>
+            </div>
+
+            <div class="bg-gray-100 p-2 rounded">
+                <p class="text-gray-500 text-xs">Father Name</p>
+                <p class="font-medium">${data.father_name}</p>
+            </div>
+
+            <div class="bg-gray-100 p-2 rounded">
+                <p class="text-gray-500 text-xs">Mother Name</p>
+                <p class="font-medium">${data.mother_name}</p>
+            </div>
+
+            <div class="bg-gray-100 p-2 rounded">
+                <p class="text-gray-500 text-xs">Mobile</p>
+                <p class="font-medium">${data.mobile}</p>
+            </div>
+
+            <div class="bg-gray-100 p-2 rounded">
+                <p class="text-gray-500 text-xs">Date</p>
+                <p class="font-medium">${data.admission_date}</p>
+            </div>
+
+            <div class="bg-gray-100 p-2 rounded col-span-2">
+                <p class="text-gray-500 text-xs">Address</p>
+                <p class="font-medium">${data.address}</p>
+            </div>
+
+        </div>
+    `;
+
+    document.getElementById("modalId").value = data.id;
 }
 
 function closeModal() {
-    document.getElementById("admission-detail-modal").classList.add("hidden");
+    document.getElementById("modal").classList.add("hidden");
 }
-function switchTab(event, tabId) {
-            // Hide all tab contents
-            const tabContents = event.target.parentElement.parentElement.querySelectorAll('.tab-content');
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-            });
 
-            // Remove active from all tabs
-            const tabs = event.target.parentElement.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
+function switchTab(e, id) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
 
-            // Show selected tab content and mark tab as active
-            const selectedTabContent = document.getElementById(tabId);
-            if (selectedTabContent) {
-                selectedTabContent.classList.add('active');
-            }
-            event.target.classList.add('active');
-        }
+    document.querySelectorAll('.tab').forEach(el => el.classList.remove('active'));
+    e.target.classList.add('active');
+}
 </script>
-<?php include "includes/modal.php"; ?>

@@ -53,7 +53,7 @@ $result = mysqli_query($conn, $query);
 
                 <!-- PREVIEW -->
                 <a 
-                    href="<?php echo BASE_URL; ?>backend/uploads/<?php echo $row['file_path']; ?>" 
+                    href="<?php echo BASE_URL; ?>uploads/<?php echo $row['file_path']; ?>"
                     target="_blank"
                     class="text-blue-600 font-medium hover:underline"
                 >
@@ -63,8 +63,13 @@ $result = mysqli_query($conn, $query);
             </div>
 
             <!-- ACTIONS -->
-            <div class="flex justify-end">
-
+            <div class="flex justify-between items-center">
+                <!-- EDIT (for future use) -->
+                <button 
+                    onclick='openEditModal(<?= json_encode($row) ?>)' 
+                    class="text-blue-500 hover:text-blue-700 flex justify-center items-center gap-2">
+                    <i class="fas fa-edit"></i><p class="text-md">Edit</p>
+                </button>
                 <a 
                     href="<?php echo BASE_URL; ?>backend/controllers/syllabusController.php?delete=<?php echo $row['id']; ?>"
                     onclick="return confirm('Delete this syllabus?')"
@@ -89,6 +94,10 @@ $result = mysqli_query($conn, $query);
 <script>
 function openModal(id) {
     document.getElementById(id).classList.remove("hidden");
+
+    document.querySelector("form").reset();
+    document.getElementById("editId").value = "";
+    document.getElementById("oldFile").value = "";
 }
 
 function closeModal() {
@@ -106,5 +115,23 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+</script>
+<script>
+function openEditModal(data) {
+
+    document.getElementById("addSyllabusModal").classList.remove("hidden");
+
+    // fill fields
+    document.querySelector("input[name='subject']").value = data.subject;
+    document.querySelector("select[name='class_name']").value = data.class_name;
+    document.querySelector("input[name='year']").value = data.year;
+
+    // hidden
+    document.getElementById("editId").value = data.id;
+    document.getElementById("oldFile").value = data.file_path;
+
+    // UI update
+    document.querySelector("h3").innerText = "Edit Syllabus";
+}
 </script>
 <?php include "includes/modal.php"; ?>

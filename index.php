@@ -8,6 +8,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
 <?php require_once "admin-panel/config/app.php"; ?>
 <?php require_once "admin-panel/backend/config/db.php"; ?>
+<?php require_once "admin-panel/backend/controllers/admissionController.php"; ?>
 
 <?php 
 // require_once "admin-panel/backend/config/db.php";
@@ -376,7 +377,7 @@ creativity, and a lifelong love for reading.</p>
 
           <h3 class="mb-3">Admission Enquiry Form</h3>
 
-          <form action=<?php echo BASE_URL; "backend/routes/admissionRoutes.php?action=create"?> method="POST">
+          <form action="<?php echo BASE_URL . 'admin-panel/backend/controllers/admissionController.php?action=create'; ?>" method="POST">
 
             <!-- Child Name -->
             <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
@@ -463,6 +464,7 @@ creativity, and a lifelong love for reading.</p>
             <div style="background:#fff; border:1px solid #ddd; padding:12px; display:flex; align-items:center; gap:10px; margin-bottom:15px;">
               <input type="checkbox" required>
               <span>I'm not a robot</span>
+              <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" width="35">
             </div>
 
             <!-- Hidden captcha value -->

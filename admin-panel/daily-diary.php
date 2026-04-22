@@ -66,7 +66,7 @@ $result = mysqli_query($conn, $query);
 
                 <!-- DELETE BUTTON -->
             <a 
-            href="<?php echo BASE_URL; ?>backend/routes/dailyDiary.php?delete=<?php echo $row['id']; ?>" 
+            href="<?php echo BASE_URL; ?>admin-panel/backend/routes/dailyDiary.php?delete=<?php echo $row['id']; ?>" 
             onclick="return confirm('Are you sure you want to delete this entry?')"
             class="text-red-500 hover:text-red-700 text-sm"
         >

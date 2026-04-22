@@ -9,7 +9,7 @@ class User {
     }
 
     public function register($data) {
-        $password = password_hash($data['password'], PASSWORD_BCRYPT);
+        // $password = password_hash($data['password'], PASSWORD_BCRYPT);
 
         $stmt = $this->conn->prepare(
             "INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, ?)"
@@ -18,7 +18,7 @@ class User {
         $stmt->bind_param("ssss",
             $data['name'],
             $data['email'],
-            $password,
+            $data['password'],
             $data['role']
         );
 

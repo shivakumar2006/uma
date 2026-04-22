@@ -6,6 +6,13 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
+<?php 
+require_once __DIR__ . "/admin-panel/backend/config/db.php";
+require_once __DIR__ . "/admin-panel/config/app.php";
+
+$query = "SELECT * FROM timetable ORDER BY id DESC";
+$result = mysqli_query($conn, $query); 
+?>
 
 <div class="hero-wrap hero-wrap-2" style="background-image: url('images/DSC_4285.JPG'); background-attachment:fixed;">
     <div class="overlay"></div>
@@ -31,52 +38,39 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:25px;">
 
-        <!-- Nursery -->
-        <div onclick="openTT('nursery')" style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Nursery</h3>
-            <p><strong>Timing:</strong> 8:30 AM – 12:00 PM</p>
-            <p>Play-based learning activities</p>
+<?php if(mysqli_num_rows($result) > 0) { ?>
+
+    <?php while($row = mysqli_fetch_assoc($result)) { ?>
+
+        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd; display:flex; flex-direction:column; justify-content:space-between;">
+
+            <div>
+                <h3><?php echo $row['class_name']; ?></h3>
+                <p style="margin-top:8px;">Click below to view timetable</p>
+            </div>
+
+            <a 
+                href="<?php echo BASE_URL; ?>uploads/<?php echo $row['file_path']; ?>"
+                target="_blank"
+                style="margin-top:15px; display:inline-block; background:#167ce9; color:#fff; padding:8px 12px; border-radius:6px; text-align:center;"
+            >
+                View Timetable
+            </a>
+
         </div>
 
-        <!-- LKG -->
-        <div onclick="openTT('lkg')" style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>LKG</h3>
-            <p><strong>Timing:</strong> 8:30 AM – 12:30 PM</p>
-            <p>Foundation subjects & activities</p>
-        </div>
+    <?php } ?>
 
-        <!-- UKG -->
-        <div onclick="openTT('ukg')" style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>UKG</h3>
-            <p><strong>Timing:</strong> 8:30 AM – 1:00 PM</p>
-            <p>Academic & creative sessions</p>
-        </div>
+<?php } else { ?>
 
-        <!-- Class I–V -->
-        <div onclick="openTT('primary')" style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class I – V</h3>
-            <p><strong>Timing:</strong> 8:30 AM – 2:00 PM</p>
-            <p>5–6 periods daily with breaks</p>
-        </div>
+    <p style="text-align:center;">No timetable uploaded yet</p>
 
-        <!-- Class VI–VIII -->
-        <div onclick="openTT('secondary')" style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class VI – X</h3>
-            <p><strong>Timing:</strong> 8:30 AM – 3:00 PM</p>
-            <p>6–7 academic periods daily</p>
-        </div>
+<?php } ?>
 
-        <!-- Class IX–X -->
-        <div onclick="openTT('senior')" style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class IX – XII</h3>
-            <p><strong>Timing:</strong> 8:30 AM – 3:30 PM</p>
-            <p>Board-focused academic schedule</p>
-        </div>
-
-    </div>
+</div>
 </div>
 
-<div id="ttModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999;">
+<!-- <div id="ttModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:999;">
     <div style="background:#fff; max-width:950px; margin:40px auto; padding:25px; border-radius:12px; position:relative;">
         
         <span onclick="closeTT()" style="position:absolute; top:15px; right:20px; font-size:22px; cursor:pointer;">x</span>
@@ -85,7 +79,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         
         <div id="ttContent" style="overflow-x:auto;"></div>
     </div>
-</div>
+</div> -->
 
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

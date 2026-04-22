@@ -6,6 +6,9 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
+<?php require_once "admin-panel/config/app.php"; ?>
+<?php require_once "admin-panel/backend/config/db.php"; ?>
+<?php require_once "admin-panel/backend/controllers/admissionController.php"; ?>
  
     
     <div class="hero-wrap hero-wrap-2" style="background-image: url('images/DSC_4285.JPG'); background-attachment:fixed;">
@@ -388,102 +391,106 @@ $currentPage = basename($_SERVER['PHP_SELF']);
         <div class="row block-9">
           <div class="col-md-5 pr-md-5">
           	<h4 class="mb-4">Admission Enquiry Form</h4>
-            <form action="submit.php" method="POST">
-                <!-- Child Name -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-person-fill"></i>
-                  </span>
-                  <input type="text" name="child_name" placeholder="Child Name" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                </div>
+            <form action="<?php echo BASE_URL . 'admin-panel/backend/controllers/admissionController.php?action=create'; ?>" method="POST">
 
-                <!-- Father Name -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-person-fill"></i>
-                  </span>
-                  <input type="text" name="father_name" placeholder="Father's Name" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                </div>
+            <!-- Child Name -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-person-fill"></i>
+              </span>
+              <input type="text" name="child_name" placeholder="Child Name" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+            </div>
 
-                <!-- Mother Name -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-person-fill"></i>
-                  </span>
-                  <input type="text" name="mother_name" placeholder="Mother's Name" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                </div>
+            <!-- Father Name -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-person-fill"></i>
+              </span>
+              <input type="text" name="father_name" placeholder="Father's Name" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+            </div>
 
-                <!-- DOB -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-calendar-event-fill"></i>
-                  </span>
-                  <input type="date" name="dob" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                </div>
+            <!-- Mother Name -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-person-fill"></i>
+              </span>
+              <input type="text" name="mother_name" placeholder="Mother's Name" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+            </div>
 
-                <!-- Mobile -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-phone-fill"></i>
-                  </span>
-                  <input type="tel" name="mobile" placeholder="Mobile*" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                </div>
+            <!-- DATE -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-calendar-event-fill"></i>
+              </span>
+              <input type="date" name="admission_date" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+            </div>
 
+            <!-- Mobile -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-phone-fill"></i>
+              </span>
+              <input type="tel" name="mobile" placeholder="Mobile*" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+            </div>
 
-                <!-- Standard -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-mortarboard-fill"></i>
-                  </span>
-                  <select name="standard" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                    <option value="">Select Standard</option>
-                    <option>Nursery</option>
-                    <option>LKG</option>
-                    <option>UKG</option>
-                    <option>Class 1</option>
-                    <option>Class 2</option>
-                    <option>Class 3</option>
-                    <option>Class 4</option>
-                    <option>Class 5</option>
-                    <option>Class 6</option>
-                    <option>Class 7</option>
-                    <option>Class 8</option>
-                    <option>Class 9</option>
-                    <option>Class 10</option>
-                    <option>Class 11</option>
-                    <option>Class 12</option>
-                  </select>
-                </div>
+            <!-- Class -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-mortarboard-fill"></i>
+              </span>
+              <select name="class" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+                <option value="">Select Class</option>
+                <option>Nursery</option>
+                <option>LKG</option>
+                <option>UKG</option>
+                <option>Class 1</option>
+                <option>Class 2</option>
+                <option>Class 3</option>
+                <option>Class 4</option>
+                <option>Class 5</option>
+                <option>Class 6</option>
+                <option>Class 7</option>
+                <option>Class 8</option>
+                <option>Class 9</option>
+                <option>Class 11</option>
+                <option>Class Maths</option>
+                <option>Class Commerce</option>
+                <option>Class Science</option>
+              </select>
+            </div>
 
-                <!-- Address -->
-                <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
-                  <span style="padding:10px;font-size:18px;">
-                    <i class="bi bi-geo-alt"></i>
-                  </span>
-                  <input type="text" name="address" placeholder="Address" required
-                    style="border:none;outline:none;padding:12px;width:100%;">
-                </div>
+            <!-- Address -->
+            <div style="background:#fff;border:1px solid #ddd;border-radius:4px;margin-bottom:15px;display:flex;align-items:center;">
+              <span style="padding:10px;font-size:18px;">
+                <i class="bi bi-geo-alt"></i>
+              </span>
+              <input type="text" name="address" placeholder="Address" required
+                style="border:none;outline:none;padding:12px;width:100%;">
+            </div>
 
-                <!-- CAPTCHA -->
-                <div style="background:#fff; border:1px solid #ddd; padding:12px; display:flex; align-items:center; gap:10px; margin-bottom:15px;">
-                  <input type="checkbox" required>
-                  <span>I'm not a robot</span>
-                  <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" width="35">
-                </div>
+            <!-- CAPTCHA -->
+            <div style="background:#fff; border:1px solid #ddd; padding:12px; display:flex; align-items:center; gap:10px; margin-bottom:15px;">
+              <input type="checkbox" required>
+              <span>I'm not a robot</span>
+              <img src="https://www.gstatic.com/recaptcha/api2/logo_48.png" width="35">
+            </div>
 
-                <!-- Button -->
-                <button type="button" onclick="window.location.href='https://vmsacademy.com/en/1225/10359'"
-                  style="background:#167ce9; color:#fff; width:100%; padding:12px; font-size:18px; border:none; cursor:pointer;">
-                  Apply Now
-                </button>
+            <!-- Hidden captcha value -->
+            <input type="hidden" name="captcha" value="8">
 
-              </form>
+            <!-- Button -->
+            <button type="submit"
+              style="background:#167ce9; color:#fff; width:100%; padding:12px; font-size:18px; border:none; cursor:pointer;">
+              Apply Now
+            </button>
+
+          </form>
           
           </div>
           <div class="col-md-7">

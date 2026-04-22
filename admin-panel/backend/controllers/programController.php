@@ -74,7 +74,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["id"])) {
 
     $program->update($id, $title, $description, $category, $status, $newFile);
 
-    header("Location: " . BASE_URL . "index.php?page=programs&success=1");
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=programs&success=1");
     exit();
 }
 
@@ -86,6 +86,6 @@ if(isset($_GET["delete"])){
 
     $program->delete($id);
 
-    header("Location: " . BASE_URL . "index.php?page=programs&success=1");
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=programs&success=1");
     exit();
 }

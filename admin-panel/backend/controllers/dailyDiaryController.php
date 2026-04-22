@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     );
 
     if($result){
-        header("Location: " . BASE_URL . "index.php?page=daily-diary&success=1");
+        header("Location: " . BASE_URL . "admin-panel/index.php?page=daily-diary&success=1");
         exit();
     }else{
         die("ERROR: " . mysqli_error($conn));
@@ -51,6 +51,6 @@ if(isset($_GET["delete"])){
 
     $diary->delete($id);
 
-    header("Location: " . BASE_URL . "index.php?page=daily-diary");
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=daily-diary");
     exit();
 }

@@ -1,8 +1,8 @@
 <?php
 
-require_once "../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../../config/app.php";
-require_once "../models/Admission.php";
+require_once __DIR__ ."/../models/Admission.php";
 
 $admission = new Admission($conn);
 
@@ -61,16 +61,16 @@ if ($action === "update_status" && $_SERVER["REQUEST_METHOD"] === "POST") {
     $allowed = ['pending', 'approved', 'rejected'];
 
     if (!in_array($status, $allowed)) {
-        header("Location: " . BASE_URL . "admin/index.php?page=Admission-Forms&error=invalid");
+        header("Location: " . BASE_URL . "admin-panel/index.php?page=Admission-Forms&error=invalid");
         exit();
     }
 
     $result = $admission->updateStatus($id, $status);
 
     if ($result) {
-        header("Location: " . BASE_URL . "admin/index.php?page=Admission-Forms&success=updated");
+        header("Location: " . BASE_URL . "admin-panel/index.php?page=Admission-Forms&success=updated");
     } else {
-        header("Location: " . BASE_URL . "admin/index.php?page=Admission-Forms&error=1");
+        header("Location: " . BASE_URL . "admin-panel/index.php?page=Admission-Forms&error=1");
     }
     exit();
 }

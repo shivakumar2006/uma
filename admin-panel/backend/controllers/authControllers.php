@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 require_once __DIR__ . "/../models/User.php";
 require_once __DIR__ . "/../../config/app.php";
 require_once __DIR__ . "/../utils/jwt.php";
@@ -7,28 +7,66 @@ require_once __DIR__ . "/../utils/jwt.php";
 class AuthController {
 
     private $user;
+    private $conn;
 
     public function __construct($conn) {
+        $this->conn = $conn;
         $this->user = new User($conn);
     }
 
-    // register 
+    // 🔹 REGISTER
     public function register() {
-        $data = $_POST;
 
-        if (empty($data['email']) || empty($data['password'])) {
-            die("Email & Password required");
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $password = $_POST['password'] ?? null;
+        $username = $_POST['username'] ?? null;
+
+        // ⚠️ role (safe default)
+        $role = $_POST['role'] ?? 'user';
+
+        if (!$email || !$password || !$username) {
+            die("All fields required");
         }
 
-        $this->user->register($data);
+        if (strlen($password) < 6) {
+            die("Password must be at least 6 characters");
+        }
 
-        echo "User registered successfully";
+        // check user exists
+        if ($this->user->findByEmail($email)) {
+            die("User already exists");
+        }
+
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+
+        // ✅ DB COLUMN = name (not username)
+        $data = [
+            "email" => $email,
+            "password" => $hashedPassword,
+            "name" => $username,
+            "role" => $role
+        ];
+
+        $result = $this->user->register($data);
+
+        if (!$result) {
+            die("Registration failed");
+        }
+
+        // ✅ redirect after signup
+        header("Location: " . BASE_URL . "login.php?success=1");
+        exit();
     }
 
-    // login
+    // 🔹 LOGIN
     public function login() {
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+        $password = $_POST['password'] ?? null;
+
+        if (!$email || !$password) {
+            die("Email & password required");
+        }
 
         $user = $this->user->findByEmail($email);
 
@@ -36,45 +74,81 @@ class AuthController {
             die("Invalid credentials");
         }
 
-        $token = generateJWT($user);
+        // ✅ start session
+        session_start();
 
-        echo json_encode([
-            "token" => $token
-        ]);
+        $_SESSION['user'] = [
+            "id" => $user['id'],
+            "name" => $user['name'],
+            "email" => $user['email'],
+            "role" => $user['role']
+        ];
+
+        // ✅ ROLE BASED REDIRECT
+        if ($user['role'] === 'admin') {
+            header("Location: " . BASE_URL . "admin-panel/index.php");
+        } else {
+            header("Location: " . BASE_URL . "index.php");
+        }
+
+        exit();
     }
 
-    // forgot password
+    // 🔹 FORGOT PASSWORD
     public function forgotPassword() {
-        $email = $_POST['email'];
+
+        $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+
+        if (!$email) {
+            die("Valid email required");
+        }
+
+        if (!$this->user->findByEmail($email)) {
+            die("User not found");
+        }
+
+        // delete old tokens
+        $stmt = $this->conn->prepare("DELETE FROM password_resets WHERE email=?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
 
         $token = bin2hex(random_bytes(32));
         $expires = date("Y-m-d H:i:s", strtotime("+1 hour"));
 
-        global $conn;
-
-        $stmt = $conn->prepare(
+        $stmt = $this->conn->prepare(
             "INSERT INTO password_resets (email, token, expires_at) VALUES (?, ?, ?)"
         );
 
         $stmt->bind_param("sss", $email, $token, $expires);
         $stmt->execute();
 
-        echo "Reset link: " . BASE_URL . "reset-password.php?token=" . $token;
+        $resetLink = BASE_URL . "reset-password.php?token=" . $token;
+
+        echo "Reset link: " . $resetLink;
+        exit();
     }
 
-    // reset password
+    // 🔹 RESET PASSWORD
     public function resetPassword() {
-        $token = $_POST['token'];
-        $newPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-        global $conn;
+        $token = $_POST['token'] ?? null;
+        $password = $_POST['password'] ?? null;
 
-        $stmt = $conn->prepare(
+        if (!$token || !$password) {
+            die("Token & password required");
+        }
+
+        if (strlen($password) < 6) {
+            die("Password must be at least 6 characters");
+        }
+
+        $stmt = $this->conn->prepare(
             "SELECT * FROM password_resets WHERE token=? AND expires_at > NOW()"
         );
 
         $stmt->bind_param("s", $token);
         $stmt->execute();
+
         $result = $stmt->get_result()->fetch_assoc();
 
         if (!$result) {
@@ -82,11 +156,34 @@ class AuthController {
         }
 
         $email = $result['email'];
+        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        $stmt = $conn->prepare("UPDATE users SET password=? WHERE email=?");
-        $stmt->bind_param("ss", $newPassword, $email);
+        // update password
+        $stmt = $this->conn->prepare(
+            "UPDATE users SET password=? WHERE email=?"
+        );
+
+        $stmt->bind_param("ss", $hashedPassword, $email);
+        $stmt->execute();
+
+        // delete token
+        $stmt = $this->conn->prepare(
+            "DELETE FROM password_resets WHERE email=?"
+        );
+
+        $stmt->bind_param("s", $email);
         $stmt->execute();
 
         echo "Password updated successfully";
+        exit();
+    }
+
+    // 🔹 LOGOUT
+    public function logout() {
+        session_start();
+        session_destroy();
+
+        header("Location: " . BASE_URL . "login.php");
+        exit();
     }
 }

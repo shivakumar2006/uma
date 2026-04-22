@@ -4,6 +4,21 @@ ini_set('display_errors', 1);
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
+<?php
+require_once __DIR__ . "/admin-panel/config/app.php";
+require_once __DIR__ . "/admin-panel/backend/config/db.php";
+
+$query = "SELECT * FROM syllabus ORDER BY class_name ASC";
+$result = mysqli_query($conn, $query);
+
+// group by class
+$grouped = [];
+
+while($row = mysqli_fetch_assoc($result)){
+    $grouped[$row['class_name']][] = $row;
+}
+?>
+
 <?php include __DIR__ . '/inc/header.php'; ?>
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
 
@@ -32,184 +47,42 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:25px;">
 
-        <!-- Nursery -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Nursery</h3>
-            <ul>
-                <li><a href="#">English Rhymes</a></li>
-                <li><a href="#">Hindi Rhymes</a></li>
-                <li><a href="#">Numbers & Shapes</a></li>
-                <li><a href="#">Drawing & Coloring</a></li>
-            </ul>
-        </div>
+<?php if(!empty($grouped)) { ?>
 
-        <!-- LKG -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>LKG</h3>
-            <ul>
-                <li><a href="#">English Alphabet</a></li>
-                <li><a href="#">Hindi Alphabet</a></li>
-                <li><a href="#">Basic Maths</a></li>
-                <li><a href="#">General Awareness</a></li>
-            </ul>
-        </div>
-
-        <!-- UKG -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>UKG</h3>
-            <ul>
-                <li><a href="#">English Reading & Writing</a></li>
-                <li><a href="#">Hindi Reading & Writing</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Environmental Studies</a></li>
-            </ul>
-        </div>
-
-        <!-- Class I–V -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class I</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Environmental Studies</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
+    <?php foreach($grouped as $class => $subjects) { ?>
 
         <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class II</h3>
+            
+            <h3><?php echo $class; ?></h3>
+
             <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Environmental Studies</a></li>
-                <li><a href="#">Computer</a></li>
+
+                <?php foreach($subjects as $item) { ?>
+
+                    <li>
+                        <a 
+                            href="<?php echo BASE_URL; ?>uploads/<?php echo $item['file_path']; ?>" 
+                            target="_blank"
+                        >
+                            <?php echo $item['subject']; ?> (<?php echo $item['year']; ?>)
+                        </a>
+                    </li>
+
+                <?php } ?>
+
             </ul>
+
         </div>
 
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class III</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Environmental Studies</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
+    <?php } ?>
 
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class IV</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Environmental Studies</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
+<?php } else { ?>
 
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class V</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Environmental Studies</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
+    <p>No syllabus available</p>
 
-        <!-- Class VI–VIII -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class VI</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
+<?php } ?>
 
-        <!-- Class VI–VIII -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class VII</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
-
-        <!-- Class VI–VIII -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class VIII</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Computer</a></li>
-            </ul>
-        </div>
-
-        <!-- Class IX–X -->
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class IX</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Information Technology</a></li>
-            </ul>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class X</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Information Technology</a></li>
-            </ul>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class XI</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Information Technology</a></li>
-            </ul>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:15px; border:1px solid #ddd;">
-            <h3>Class XII</h3>
-            <ul>
-                <li><a href="#">English</a></li>
-                <li><a href="#">Hindi</a></li>
-                <li><a href="#">Mathematics</a></li>
-                <li><a href="#">Science</a></li>
-                <li><a href="#">Social Science</a></li>
-                <li><a href="#">Information Technology</a></li>
-            </ul>
-        </div>
-
-    </div>
+</div>
 </div>
 
 <?php include __DIR__ . '/inc/footer.php'; ?>

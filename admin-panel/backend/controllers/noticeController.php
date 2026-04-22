@@ -42,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     );
 
     if ($result) {
-        header("Location: " . BASE_URL ."index.php?page=notice-board&success=1");
+        header("Location: " . BASE_URL . "admin-panel/index.php?page=notice-board&success=1");
         exit();
     } else {
         echo "Failed to create notice";

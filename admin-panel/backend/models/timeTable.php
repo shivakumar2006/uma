@@ -18,6 +18,16 @@ class TimeTable {
         return $stmt->execute();
     }
 
+    public function update($id, $class_name, $file_path) {
+
+        $query = "UPDATE timetable SET class_name=?, file_path=? WHERE id=?";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param("ssi", $class_name, $file_path, $id);
+
+        return $stmt->execute();
+    }
+
     public function getByClass($class_name) {
         $query = "SELECT * FROM timetable WHERE class_name = ?";
         $stmt = $this->conn->prepare($query);

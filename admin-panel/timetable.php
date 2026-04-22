@@ -1,4 +1,12 @@
-<?php include "includes/header.php"; ?>
+<?php 
+include "includes/header.php"; 
+// include "includes/modal.php";
+require_once __DIR__ . "/backend/config/db.php";
+require_once __DIR__ . "/config/app.php";
+
+$query = "SELECT * FROM timetable ORDER BY id DESC";
+$result = mysqli_query($conn, $query);
+?>
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <p class="text-slate-500 text-sm">Academics / Schedule</p>
@@ -26,47 +34,75 @@
                 </div>
 
                 <!-- Visual Calendar/Time Table -->
-                <div class="bg-white p-6 rounded-xl shadow-sm overflow-x-auto">
-                    <table class="min-w-full text-center border-collapse">
-                        <thead>
-                            <tr class="bg-slate-100 text-slate-600">
-                                <th class="p-3 border border-slate-200">Time</th>
-                                <th class="p-3 border border-slate-200">Mon</th>
-                                <th class="p-3 border border-slate-200">Tue</th>
-                                <th class="p-3 border border-slate-200">Wed</th>
-                                <th class="p-3 border border-slate-200">Thu</th>
-                                <th class="p-3 border border-slate-200">Fri</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm text-slate-700">
-                            <tr>
-                                <td class="p-3 border font-semibold bg-slate-50">09:00 - 10:00</td>
-                                <td class="p-3 border bg-indigo-50 text-indigo-700 font-medium">Math</td>
-                                <td class="p-3 border">Science</td>
-                                <td class="p-3 border bg-indigo-50 text-indigo-700 font-medium">Math</td>
-                                <td class="p-3 border">English</td>
-                                <td class="p-3 border bg-indigo-50 text-indigo-700 font-medium">Math</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 border font-semibold bg-slate-50">10:00 - 11:00</td>
-                                <td class="p-3 border">History</td>
-                                <td class="p-3 border bg-pink-50 text-pink-700 font-medium">Art</td>
-                                <td class="p-3 border">Physics</td>
-                                <td class="p-3 border bg-green-50 text-green-700 font-medium">Sports</td>
-                                <td class="p-3 border">Chemistry</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 border font-semibold bg-slate-50">11:00 - 12:00</td>
-                                <td class="p-3 border">Physics</td>
-                                <td class="p-3 border">Math</td>
-                                <td class="p-3 border">Geography</td>
-                                <td class="p-3 border">Math</td>
-                                <td class="p-3 border">Lab Work</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+
+    <h3 class="text-lg font-bold mb-4 text-slate-700">Class Timetable</h3>
+
+    <?php if(mysqli_num_rows($result) > 0) { ?>
+
+        <div class="space-y-3">
+
+        <?php while($row = mysqli_fetch_assoc($result)) { ?>
+
+            <div class="flex items-center justify-between bg-slate-50 hover:bg-slate-100 transition rounded-lg px-4 py-3 border border-slate-200">
+
+                <!-- LEFT -->
+                <div class="flex items-center gap-3">
+                    
+                    <div class="h-10 w-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+
+                    <div>
+                        <p class="font-semibold text-slate-800">
+                            <?php echo $row['class_name']; ?>
+                        </p>
+                        <p class="text-xs text-slate-500">
+                            Timetable PDF
+                        </p>
+                    </div>
+
                 </div>
+
+                <!-- RIGHT -->
+                <div class="flex items-center gap-4">
+
+                    <!-- VIEW -->
+                    <a 
+                        href="<?php echo BASE_URL; ?>uploads/<?php echo $row['file_path']; ?>" 
+                        target="_blank"
+                        class="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 text-sm font-medium"
+                    >
+                        <i class="fas fa-eye"></i> View
+                    </a>
+
+                    <!-- DELETE -->
+                    <a 
+                        href="<?php echo BASE_URL; ?>admin-panel/backend/controllers/timetableController.php?delete=<?php echo $row['id']; ?>"
+                        onclick="return confirm('Are you sure you want to delete this timetable?')"
+                        class="text-red-500 hover:text-red-700 flex items-center gap-1 text-sm font-medium"
+                    >
+                        <i class="fas fa-trash"></i> Delete
+                    </a>
+
+                </div>
+
             </div>
+
+        <?php } ?>
+
+        </div>
+
+    <?php } else { ?>
+
+        <div class="text-center py-10 text-slate-400">
+            <i class="fas fa-folder-open text-3xl mb-2"></i>
+            <p>No timetable uploaded yet</p>
+        </div>
+
+    <?php } ?>
+
+</div>
 <script>
 function openModal(id) {
     document.getElementById(id).classList.remove("hidden");

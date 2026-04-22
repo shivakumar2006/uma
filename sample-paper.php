@@ -3,6 +3,13 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
+<?php
+require_once __DIR__ . "/admin-panel/backend/config/db.php";
+require_once __DIR__ . "/admin-panel/config/app.php";
+
+$query = "SELECT * FROM sample_papers ORDER BY id DESC";
+$result = mysqli_query($conn, $query);
+?>
 
 <?php include __DIR__ . '/inc/header.php'; ?>
 <?php include __DIR__ . '/inc/top-nav.php'; ?>
@@ -28,78 +35,34 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(250px,1fr)); gap:25px;">
 
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class I</h3>
-            <p>All subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
+<?php if(mysqli_num_rows($result) > 0) { ?>
+
+    <?php while($row = mysqli_fetch_assoc($result)) { ?>
 
         <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class II</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
+            
+            <h3><?php echo $row['class_name']; ?></h3>
+            
+            <p><?php echo $row['subject']; ?> (<?php echo $row['year']; ?>)</p>
+
+            <a 
+                href="<?php echo BASE_URL; ?>uploads/<?php echo $row['file_path']; ?>" 
+                target="_blank"
+                class="btn btn-primary py-2 px-3"
+            >
+                Download
+            </a>
+
         </div>
 
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class III</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
+    <?php } ?>
 
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class IV</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
+<?php } else { ?>
 
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class V</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
+    <p style="text-align:center;">No sample papers available</p>
 
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class VI</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
+<?php } ?>
 
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class VII</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class VIII</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class IX</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class X</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class XI</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
-
-        <div style="background:#fff; padding:20px; border-radius:12px; border:1px solid #ddd;">
-            <h3>Class XII</h3>
-            <p>All Subjects</p>
-            <button class="btn btn-primary py-3 px-4" style="padding:8px 15px;">Download</button>
-        </div>
-
-    </div>
+</div>
 </div>
 <?php include __DIR__ . '/inc/footer.php'; ?>

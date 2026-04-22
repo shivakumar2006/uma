@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if ($result) {
-        header("Location: " . BASE_URL . "index.php?page=career&success=1");
+        header("Location: " . BASE_URL . "admin-panel/index.php?page=career&success=1");
         exit();
     } else {
         die("DB Error: " . mysqli_error($conn));
@@ -45,7 +45,7 @@ if (isset($_GET["delete"])) {
     $id = intval($_GET["delete"]);
     $job->delete($id);
 
-    header("Location: " . BASE_URL . "index.php?page=career");
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=career");
     exit();
 }
 

@@ -19,3 +19,4 @@ build/
 .phpstan.cache
 composer.lock
 *.env
+*.pdf

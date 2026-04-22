@@ -141,7 +141,7 @@ ini_set('display_errors', 1);
             <div class="p-6" id="modalBody">
                 <!-- Dynamic Content injected here -->
                 <form  
-                action="<?php echo BASE_URL; ?>backend/routes/program.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/routes/program.php"
                 method="POST"
                 enctype="multipart/form-data"
                 class="space-y-4"
@@ -222,7 +222,7 @@ ini_set('display_errors', 1);
         <div class="p-6">
             
             <form 
-                action="<?php echo BASE_URL; ?>backend/routes/jobRoutes.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/controllers/jobController.php"
                 method="POST"
                 enctype="multipart/form-data"
                 class="space-y-4"
@@ -384,7 +384,7 @@ ini_set('display_errors', 1);
                 class="space-y-4"
             > -->
             <form 
-                action="<?php echo BASE_URL; ?>backend/routes/noticeRoutes.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/controllers/noticeController.php"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -501,7 +501,7 @@ ini_set('display_errors', 1);
                 class="space-y-4"
             > -->
             <form 
-                action="<?php echo BASE_URL; ?>backend/routes/dailyDiary.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/routes/dailyDiary.php"
                 method="POST"
                 enctype="multipart/form-data"
             >
@@ -649,11 +649,24 @@ ini_set('display_errors', 1);
             </div>
             <div class="p-6" id="modalBody">
                 <!-- Dynamic Content injected here -->
-                <form class="space-y-4" onsubmit="handleFormSubmit(event)">
+                <form 
+                    action="<?php echo BASE_URL; ?>admin-panel/backend/controllers/timetableController.php"
+                    method="POST"
+                    enctype="multipart/form-data"
+                    class="space-y-4"
+                >
+                
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Class</label>
-                            <select class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field">
+                
+                            <input type="hidden" name="id" id="editId">
+                            <input type="hidden" name="old_file" id="oldFile">
+                
+                            <select 
+                                name="class_name"
+                                class="w-full border border-slate-300 rounded-lg px-3 py-2 input-field"
+                            >
                                 <option>Class 1</option>
                                 <option>Class 2</option>
                                 <option>Class 3</option>
@@ -669,20 +682,44 @@ ini_set('display_errors', 1);
                             </select>
                         </div>
                     </div>
+                
+                    <!-- FILE UPLOAD -->
                     <div>
-                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Upload File</label>
-                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-500 hover:bg-slate-50 cursor-pointer transition-colors">
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">
+                            Upload File (PDF Only)
+                        </label>
+                
+                        <!-- REAL INPUT -->
+                        <input 
+                            type="file" 
+                            name="file" 
+                            id="timeTableFileInput"
+                            accept="application/pdf"
+                            class="hidden"
+                            required
+                        >
+                
+                        <!-- UI BOX -->
+                        <div 
+                            onclick="document.getElementById('timeTableFileInput').click()" 
+                            class="border-2 border-dashed border-slate-300 rounded-lg p-4 text-center text-slate-500 hover:bg-slate-50 cursor-pointer"
+                        >
                             <i class="fas fa-cloud-upload-alt text-2xl mb-1"></i><br>
-                            <span class="text-xs">Click to browse</span>
+                            <span class="text-xs" id="timeTableFileText">Click to upload PDF</span>
                         </div>
                     </div>
+                
+                    <!-- BUTTONS -->
                     <div class="pt-2 flex justify-end gap-3">
-                        <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">Cancel</button>
-                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow transition-colors flex items-center gap-2">
-                            <span id="submitText">Save Changes</span>
-                            <i class="fas fa-spinner fa-spin hidden" id="loadingSpinner"></i>
+                        <button type="button" onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">
+                            Cancel
+                        </button>
+                
+                        <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 shadow">
+                            Save Changes
                         </button>
                     </div>
+                
                 </form>
             </div>
         </div>
@@ -701,7 +738,7 @@ ini_set('display_errors', 1);
         <div class="p-6">
 
             <form 
-                action="<?php echo BASE_URL; ?>backend/routes/syllabus.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/controllers/syllabusController.php"
                 method="POST"
                 enctype="multipart/form-data"
                 class="space-y-4"
@@ -718,6 +755,8 @@ ini_set('display_errors', 1);
                         required
                     >
                 </div>
+                <input type="hidden" name="id" id="editId">
+                <input type="hidden" name="old_file" id="oldFile">
 
                 <!-- CLASS + YEAR -->
                 <div class="grid grid-cols-2 gap-3">
@@ -809,7 +848,7 @@ ini_set('display_errors', 1);
             <div class="p-6" id="modalBody">
                 <!-- Dynamic Content injected here -->
                 <form 
-                action="<?php echo BASE_URL; ?>backend/routes/samplePaperRoutes.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/controllers/samplePaperControllers.php"
                 method="POST"
                 enctype="multipart/form-data" 
                 class="space-y-4"
@@ -823,6 +862,8 @@ ini_set('display_errors', 1);
                             placeholder="e.g., Physics Sample Paper" 
                             required
                         >
+                        <input type="hidden" name="id" id="editId">
+                        <input type="hidden" name="old_file" id="oldFile">
                     </div>
                     <div class="grid grid-cols-2 gap-3">
                     <div>
@@ -869,7 +910,7 @@ ini_set('display_errors', 1);
             id="fileInput"
             accept="application/pdf"
             class="hidden"
-            required
+            
         >
 
         <!-- UI -->

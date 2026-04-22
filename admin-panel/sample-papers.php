@@ -57,7 +57,7 @@ $result = mysqli_query($conn, $query);
 
                             <td class="p-4">
                                 <a 
-                                    href="<?php echo BASE_URL; ?>backend/uploads/<?php echo $row['file_path']; ?>" 
+                                    href="<?php echo BASE_URL; ?>uploads/<?php echo $row['file_path']; ?>" 
                                     target="_blank"
                                     class="text-indigo-600 hover:underline"
                                 >
@@ -68,13 +68,15 @@ $result = mysqli_query($conn, $query);
                             <td class="p-4 text-right space-x-2">
 
                                 <!-- EDIT (for future use) -->
-                                <!-- <button class="text-blue-500 hover:text-blue-700">
+                                <button 
+                                    onclick='openEditModal(<?= json_encode($row) ?>)' 
+                                    class="text-blue-500 hover:text-blue-700">
                                     <i class="fas fa-edit"></i>
-                                </button> -->
+                                </button>
 
                                 <!-- DELETE -->
                                 <a 
-                                    href="<?php echo BASE_URL; ?>backend/routes/samplePaperRoutes.php?delete=<?php echo $row['id']; ?>"
+                                    href="<?php echo BASE_URL; ?>admin-panel/backend/controllers/samplePaperControllers.php?delete=<?php echo $row['id']; ?>"
                                     onclick="return confirm('Are you sure you want to delete this paper?')"
                                     class="text-red-500 hover:text-red-700"
                                 >
@@ -128,6 +130,31 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+</script>
+<script>
+    function openEditModal(data) {
+
+    // modal open
+    document.getElementById("addPaperModal").classList.remove("hidden");
+
+    // change title
+    document.getElementById("modalTitle").innerText = "Edit Sample Paper";
+
+    // fill values
+    document.querySelector("input[name='subject']").value = data.subject;
+    document.querySelector("select[name='class_name']").value = data.class_name;
+    document.querySelector("input[name='year']").value = data.year;
+
+    // hidden inputs
+    document.getElementById("editId").value = data.id;
+    document.getElementById("oldFile").value = data.file_path;
+
+    // button text change
+    document.getElementById("submitText").innerText = "Update Paper";
+
+    // file text change (optional UX)
+    document.getElementById("fileText").innerText = data.file_path;
+}
 </script>
 
 <?php include "includes/modal.php"; ?>

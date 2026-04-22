@@ -1,45 +1,113 @@
 <?php
 
 require_once "../config/db.php";
+require_once __DIR__ . "/../../config/app.php";
 require_once "../models/timeTable.php";
 
 $timetable = new TimeTable($conn);
 
-// upload timetable 
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
+// create
+if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($_POST["id"])) {
+
     $class_name = $_POST["class_name"];
+
     $fileName = $_FILES["file"]["name"];
     $tmp = $_FILES["file"]["tmp_name"];
 
-    $text = pathinfo($fileName, PATHINFO_EXTENSION);
+    $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
-    // allow only pdf 
+    // allow only pdf
     if ($ext !== "pdf") {
-        die("Only pdf files are allowed");
+        die("Only PDF files are allowed");
     }
 
     $newFileName = time() . "_" . $fileName;
 
-    $uploadPath = "../uploads/" . $newFileName;
+    $uploadDir = realpath(__DIR__ . "/../../../") . "/uploads/";
 
-    move_uploaded_file($tmp, $uploadPath); 
-
-    $result = $timetable->upload($class_name, $newFileName);
-
-    if ($result) {
-        header("Location: ../../admin-panel/timetable.php?success=1");
-        exit();
-    } else {
-        echo("Failed to upload timetable");
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
     }
-}
 
-// delete 
-if (isset($_GET["delete"])) {
-    $id = $_GET["delete"];
-    $timetable->delete($id);
-    header("Location: ../../admin-panel/timetable.php");
+    $uploadPath = $uploadDir . $newFileName;
+
+    if (!move_uploaded_file($tmp, $uploadPath)) {
+        die("Upload failed");
+    }
+
+    $timetable->upload($class_name, $newFileName);
+
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=timetable&success=1");
     exit();
 }
 
-?>
+
+// update
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["id"])) {
+
+    $id = $_POST["id"];
+    $class_name = $_POST["class_name"];
+
+    $fileName = $_FILES["file"]["name"];
+
+    if (!empty($fileName)) {
+
+        $tmp = $_FILES["file"]["tmp_name"];
+        $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if ($ext !== "pdf") {
+            die("Only PDF allowed");
+        }
+
+        $newFileName = time() . "_" . $fileName;
+
+        $uploadDir = realpath(__DIR__ . "/../../../") . "/uploads/";
+        $uploadPath = $uploadDir . $newFileName;
+
+        move_uploaded_file($tmp, $uploadPath);
+
+        // delete old file
+        $oldFile = $_POST["old_file"];
+        $oldPath = $uploadDir . $oldFile;
+
+        if (file_exists($oldPath)) {
+            unlink($oldPath);
+        }
+
+    } else {
+        $newFileName = $_POST["old_file"];
+    }
+
+    $timetable->update($id, $class_name, $newFileName);
+
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=timetable&success=updated");
+    exit();
+}
+
+
+// delete
+if (isset($_GET["delete"])) {
+
+    $id = $_GET["delete"];
+
+    // get file first
+    $stmt = $conn->prepare("SELECT file_path FROM timetable WHERE id=?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $row = $res->fetch_assoc();
+
+    if ($row) {
+        $uploadDir = realpath(__DIR__ . "/../../../") . "/uploads/";
+        $filePath = $uploadDir . $row['file_path'];
+
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
+
+        $timetable->delete($id);
+    }
+
+    header("Location: " . BASE_URL . "admin-panel/index.php?page=timetable&success=deleted");
+    exit();
+}

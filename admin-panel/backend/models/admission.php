@@ -19,9 +19,9 @@ class Admission {
     ) {
 
         $query = "INSERT INTO admissions 
-        (child_name, father_name, mother_name, mobile, class, address, admission_date) 
-        VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        (child_name, father_name, mother_name, mobile, class, address, admission_date, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, 'pending')";
+        
         $stmt = $this->conn->prepare($query);
 
         $stmt->bind_param(

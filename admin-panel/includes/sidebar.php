@@ -1,4 +1,12 @@
-<?php $currentPage = $_GET['page'] ?? 'dashboard'; ?>
+<?php 
+session_start();
+$currentPage = $_GET['page'] ?? 'dashboard'; 
+require_once __DIR__ . "/../config/app.php";
+?>
+<?php
+$userName = $_SESSION['user']['name'] ?? 'Guest';
+$userEmail = $_SESSION['user']['email'] ?? 'guest@email.com';
+?>
 <aside class="sidebar bg-slate-900 text-white w-64 flex flex-col h-full shadow-xl">
 
 <div class="h-16 flex items-center px-6 border-b border-slate-700">
@@ -133,11 +141,13 @@
             <div class="flex items-center gap-3">
                 <img src="https://ui-avatars.com/api/?name=Admin+User&background=4f46e5&color=fff" alt="Admin" class="w-10 h-10 rounded-full">
                 <div class="user-info overflow-hidden">
-                    <p class="text-sm font-semibold truncate">Principal Admin</p>
-                    <p class="text-xs text-slate-400">admin@school.edu</p>
+                    <p class="text-sm font-semibold truncate"><?php echo $userName; ?></p>
+                    <p class="text-xs text-slate-400"><?php echo $userEmail; ?></p>
                 </div>
-                <a href="logout.php" class="ml-auto text-slate-400 hover:text-red-400" title="Logout">
-                    <i class="fas fa-sign-out-alt"></i>
+                <a href="<?php echo BASE_URL; ?>admin-panel/backend/routes/auth.php?action=logout"
+                   class="ml-auto text-slate-400 hover:text-red-400"
+                   title="Logout">
+                   <i class="fas fa-sign-out-alt"></i>
                 </a>
             </div>
         </div>

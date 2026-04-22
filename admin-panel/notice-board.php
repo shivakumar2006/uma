@@ -64,7 +64,7 @@ $result = mysqli_query($conn, $query);
                 <?php } ?>
             </div>
             <a 
-                href="<?php echo BASE_URL; ?>backend/routes/deleteNotice.php?id=<?php echo $row['id']; ?>" 
+                href="<?php echo BASE_URL; ?>admin-panel/backend/routes/deleteNotice.php?id=<?php echo $row['id']; ?>" 
                 onclick="return confirm('Are you sure you want to delete this notice?')"
                 class="text-red-500 hover:text-red-700 font-semibold"
             >
