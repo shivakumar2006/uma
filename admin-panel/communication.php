@@ -1,4 +1,8 @@
 <?php include "includes/header.php"; ?>
+<?php if(isset($_GET['success'])): ?>
+    <p class="text-green-600 mb-4">Message sent successfully!</p>
+<?php endif; ?>
+
 <div class="flex justify-between items-center mb-6">
     <div>
         <p class="text-slate-500 text-sm">Communication</p>
@@ -11,53 +15,65 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                             <!-- Send SMS -->
                             <div class="card p-6">
-                                <h3 class="text-lg font-bold text-gray-800 mb-6">Send SMS</h3>
-                                <div class="space-y-4">
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4">Send SMS</h3>
+                                <form action="<?php echo BASE_URL; ?>admin-panel/backend/routes/communication.php?action=send" method="POST">
+
+                                    <input type="hidden" name="type" value="sms">
+
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Recipient Type</label>
-                                        <select class="form-input">
-                                            <option>All Students</option>
-                                            <option>All Teachers</option>
-                                            <option>Specific Class</option>
-                                            <option>Specific Student</option>
+                                        <select name="audience" class="form-input" required>
+                                            <option value="all_students">All Students</option>
+                                            <option value="all_teachers">All Teachers</option>
+                                            <option value="specific_class">Specific Class</option>
+                                            <option value="specific_students">Specific Student</option>
                                         </select>
                                     </div>
+
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                                        <textarea class="form-input" rows="4" placeholder="Type your message here..."></textarea>
+                                        <textarea name="message" class="form-input" rows="4" required></textarea>
                                     </div>
-                                    <button class="bg-indigo-600 text-white w-full py-2 rounded-lg hover:bg-indigo-700 transition-colors">
-                                        <i class="fas fa-paper-plane mr-2"></i>Send SMS
+
+                                    <button type="submit" class="bg-indigo-600 text-white w-full py-2 rounded-lg">
+                                        Send SMS
                                     </button>
-                                </div>
+
+                                </form>
                             </div>
 
                             <!-- Send Email -->
                             <div class="card p-6">
-                                <h3 class="text-lg font-bold text-gray-800 mb-6">Send Email</h3>
-                                <div class="space-y-4">
+                                <h3 class="text-2xl font-bold text-slate-800 mb-4">Send Email</h3>
+                                <form action="<?php echo BASE_URL; ?>admin-panel/backend/routes/communication.php?action=send" method="POST">
+
+                                    <input type="hidden" name="type" value="email">
+
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Recipient Type</label>
-                                        <select class="form-input">
-                                            <option>All Students</option>
-                                            <option>All Teachers</option>
-                                            <option>Specific Class</option>
-                                            <option>Specific Student</option>
+                                        <select name="audience" class="form-input" required>
+                                            <option value="all_students">All Students</option>
+                                            <option value="all_teachers">All Teachers</option>
+                                            <option value="specific_class">Specific Class</option>
+                                            <option value="specific_students">Specific Student</option>
                                         </select>
                                     </div>
+
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Subject</label>
-                                        <input type="text" class="form-input" placeholder="Email subject">
+                                        <input type="text" name="subject" class="form-input" required>
                                     </div>
+
                                     <div>
                                         <label class="block text-sm font-semibold text-gray-700 mb-2">Message</label>
-                                        <textarea class="form-input" rows="4" placeholder="Type your message here..."></textarea>
+                                        <textarea name="message" class="form-input" rows="4" required></textarea>
                                     </div>
-                                    <button class="bg-indigo-600 text-white w-full py-2 rounded-lg hover:bg-indigo-700 transition-colors">
-                                        <i class="fas fa-envelope mr-2"></i>Send Email
+
+                                    <button type="submit" class="bg-indigo-600 text-white w-full py-2 rounded-lg">
+                                        Send Email
                                     </button>
-                                </div>
-                            </div>
+
+                                </form>
                         </div>
 
                         <!-- Communication History -->

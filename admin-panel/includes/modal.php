@@ -100,35 +100,37 @@ ini_set('display_errors', 1);
     </div>
 
 
-<!-- Reply Modal Template -->
-<div id="reply-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
-        <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
-            <div class="flex items-center justify-between mb-6">
-                <h3 class="text-2xl font-bold text-gray-800">Reply to Query</h3>
-                <button onclick="closeModal('reply-modal')" class="text-gray-500 hover:text-gray-700">
-                    <i class="fas fa-times text-2xl"></i>
+<div id="reply-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-md p-6">
+
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold">Reply to Query</h3>
+            <button onclick="closeModal()" class="text-gray-500 text-xl">×</button>
+        </div>
+
+        <form action="<?php echo BASE_URL; ?>admin-panel/backend/routes/query.php?action=reply" method="POST">
+
+            <input type="hidden" name="query_id" id="replyQueryId">
+            <input type="hidden" name="email" id="replyEmail">
+
+            <div class="mb-4">
+                <label class="block text-sm font-semibold mb-2">Reply</label>
+                <textarea name="message" class="w-full border p-2 rounded" rows="4" required></textarea>
+            </div>
+
+            <div class="flex justify-end gap-3">
+                <button type="button" onclick="closeModal()" class="px-4 py-2 bg-gray-200 rounded">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded">
+                    Send Reply
                 </button>
             </div>
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Reply</label>
-                    <textarea class="form-input" rows="4" placeholder="Type your reply here..."></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-semibold text-gray-700 mb-2">Send Via</label>
-                    <select class="form-input">
-                        <option>Email</option>
-                        <option>SMS</option>
-                        <option>Both</option>
-                    </select>
-                </div>
-                <div class="flex gap-3 justify-end">
-                    <button onclick="closeModal('reply-modal')" class="btn-secondary">Cancel</button>
-                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors">Send Reply</button>
-                </div>
-            </div>
-        </div>
+
+        </form>
+
     </div>
+
+</div>
 
 <div id="addProgramModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center modal-overlay hidden backdrop-blur-sm">
         <div class="modal-content bg-white rounded-xl shadow-2xl w-full max-w-md mx-4 overflow-hidden transform scale-95">
@@ -384,7 +386,7 @@ ini_set('display_errors', 1);
                 class="space-y-4"
             > -->
             <form 
-                action="<?php echo BASE_URL; ?>admin-panel/backend/controllers/noticeController.php"
+                action="<?php echo BASE_URL; ?>admin-panel/backend/routes/noticeRoutes.php"
                 method="POST"
                 enctype="multipart/form-data"
             >

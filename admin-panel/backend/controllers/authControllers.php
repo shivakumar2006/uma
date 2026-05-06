@@ -21,7 +21,7 @@ class AuthController {
         $password = $_POST['password'] ?? null;
         $username = $_POST['username'] ?? null;
 
-        // ⚠️ role (safe default)
+        // role (safe default)
         $role = $_POST['role'] ?? 'user';
 
         if (!$email || !$password || !$username) {
@@ -39,7 +39,7 @@ class AuthController {
 
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-        // ✅ DB COLUMN = name (not username)
+        // DB COLUMN = name (not username)
         $data = [
             "email" => $email,
             "password" => $hashedPassword,
@@ -53,12 +53,12 @@ class AuthController {
             die("Registration failed");
         }
 
-        // ✅ redirect after signup
+        // redirect after signup
         header("Location: " . BASE_URL . "login.php?success=1");
         exit();
     }
 
-    // 🔹 LOGIN
+    // LOGIN
     public function login() {
 
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -74,7 +74,7 @@ class AuthController {
             die("Invalid credentials");
         }
 
-        // ✅ start session
+        // start session
         session_start();
 
         $_SESSION['user'] = [
@@ -84,7 +84,7 @@ class AuthController {
             "role" => $user['role']
         ];
 
-        // ✅ ROLE BASED REDIRECT
+        // ROLE BASED REDIRECT
         if ($user['role'] === 'admin') {
             header("Location: " . BASE_URL . "admin-panel/index.php");
         } else {
@@ -94,7 +94,7 @@ class AuthController {
         exit();
     }
 
-    // 🔹 FORGOT PASSWORD
+    // FORGOT PASSWORD
     public function forgotPassword() {
 
         $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
@@ -128,7 +128,7 @@ class AuthController {
         exit();
     }
 
-    // 🔹 RESET PASSWORD
+    // RESET PASSWORD
     public function resetPassword() {
 
         $token = $_POST['token'] ?? null;
@@ -178,7 +178,7 @@ class AuthController {
         exit();
     }
 
-    // 🔹 LOGOUT
+    // LOGOUT
     public function logout() {
         session_start();
         session_destroy();

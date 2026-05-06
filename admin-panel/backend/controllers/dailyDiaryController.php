@@ -1,8 +1,8 @@
 <?php
 
-require_once "../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../../config/app.php";
-require_once "../models/dailyDiary.php";
+require_once __DIR__ . "/../models/dailyDiary.php";
 
 $diary = new DailyDiary($conn);
 
@@ -20,9 +20,46 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $fileName = "";
 
     if(isset($_FILES["file"]) && $_FILES["file"]["name"] != ""){
-        $fileName = $_FILES["file"]["name"];
-        $tmp = $_FILES["file"]["tmp_name"];
-        move_uploaded_file($tmp, "../uploads/" . $fileName);
+
+        $file = $_FILES["file"];
+        $originalName = basename($file["name"]);
+        $tmp = $file["tmp_name"];
+
+        // file size limit
+        $maxSize = 5 * 1024 * 1024; // 5MB
+        if($file["size"] > $maxSize){
+            die("File too large. Max 5MB allowed");
+        }
+
+        // real mime check
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $tmp);
+        finfo_close($finfo);
+
+        if($mime !== 'application/pdf'){
+            die("Only valid PDF files are allowed");
+        }
+
+        // safe filename
+        $ext = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+
+        if($ext !== 'pdf'){
+            die("Only PDF allowed");
+        }
+
+        $fileName = time() . "_" . uniqid() . "." . $ext;
+
+        $uploadDir = __DIR__ . "/../../../uploads/";
+
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+
+        $uploadPath = $uploadDir . $fileName;
+
+        if(!move_uploaded_file($tmp, $uploadPath)){
+            die("File upload failed");
+        }
     }
 
     $result = $diary->create(

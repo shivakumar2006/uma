@@ -20,3 +20,4 @@ build/
 composer.lock
 *.env
 *.pdf
+*.png

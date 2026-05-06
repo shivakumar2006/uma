@@ -1,28 +1,28 @@
 <?php
 
-require_once __DIR__ . "/../controllers/AdmissionController.php";
+require_once __DIR__ . "/../controllers/admissionController.php";
 
-$controller = new AdmissionController();
+// $controller = new admissionController();
 
-$action = $_GET['action'] ?? '';
+// $action = $_GET['action'] ?? '';
 
-switch ($action) {
+// switch ($action) {
 
-    case "create":
-        $controller->create();
-        break;
+//     case "create":
+//         $controller->create();
+//         break;
 
-    case "get_all":
-        $controller->getAll();
-        break;
+//     case "get_all":
+//         $controller->getAll();
+//         break;
 
-    case "update_status":
-        $controller->updateStatus();
-        break;
+//     case "update_status":
+//         $controller->updateStatus();
+//         break;
 
-    default:
-        echo json_encode([
-            "success" => false,
-            "message" => "Invalid route"
-        ]);
-} 
+//     default:
+//         echo json_encode([
+//             "success" => false,
+//             "message" => "Invalid route"
+//         ]);
+// } 

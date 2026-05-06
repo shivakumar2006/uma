@@ -2,18 +2,13 @@
 
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../../config/app.php";
-require_once __DIR__ ."/../models/Admission.php";
+require_once __DIR__ ."/../models/admission.php";
 
 $admission = new Admission($conn);
 
 // decide action
 $action = $_GET['action'] ?? '';
 
-/**
- * =========================
- * CREATE ADMISSION
- * =========================
- */
 if ($action === "create" && $_SERVER["REQUEST_METHOD"] === "POST") {
 
     $child_name    = $_POST["child_name"];
@@ -48,11 +43,6 @@ if ($action === "create" && $_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
-/**
- * =========================
- * UPDATE STATUS
- * =========================
- */
 if ($action === "update_status" && $_SERVER["REQUEST_METHOD"] === "POST") {
 
     $id = $_POST["id"];
@@ -75,11 +65,6 @@ if ($action === "update_status" && $_SERVER["REQUEST_METHOD"] === "POST") {
     exit();
 }
 
-/**
- * =========================
- * GET ALL (for admin include)
- * =========================
- */
 if ($action === "get_all") {
     $result = $admission->getAll();
 }

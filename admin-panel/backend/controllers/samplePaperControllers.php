@@ -1,8 +1,8 @@
 <?php
 
-require_once "../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../../config/app.php";
-require_once "../models/samplePapers.php";
+require_once __DIR__ . "/../models/samplePapers.php";
 
 $paper = new SamplePaper($conn);
 
@@ -32,11 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($_POST["id"])) {
     $newFile = time() . "_" . $fileName;
 
     $uploadDir = realpath(__DIR__ . "/../../../") . "/uploads/";
-    // $uploadDir = "/Applications/XAMPP/xamppfiles/htdocs/uma/uploads/";
-    // $basePath = ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === '127.0.0.1') ? "/uma" : "";
-
-    // $uploadDir = $_SERVER['DOCUMENT_ROOT'] . $basePath . "/uploads/";
-
 
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
@@ -64,21 +59,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_POST["id"])) {
     $year = $_POST["year"];
 
     $fileName = $_FILES["file"]["name"];
-
-    if(!empty($fileName)){
-
-        $tmp = $_FILES["file"]["tmp_name"];
-        $ext = pathinfo($fileName, PATHINFO_EXTENSION);
-
-        if($ext !== "pdf"){
-            die("Only PDF allowed");
-        }
-
-        $newFile = time() . "_" . $fileName;
-
-       move_uploaded_file($tmp, __DIR__ . "/../../../uploads/" . $newFile);
-    } else {
-        $newFile = $_POST["old_file"];
+    $tmp = $_FILES["file"]["tmp_name"];
+    
+    $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+    
+    if($ext !== "pdf"){
+        die("Only PDF allowed");
+    }
+    
+    $newFile = time() . "_" . uniqid() . ".pdf";
+    
+    $uploadDir = realpath(__DIR__ . "/../../../") . "/uploads/";
+    
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+    
+    $uploadPath = $uploadDir . $newFile;
+    
+    if (!move_uploaded_file($tmp, $uploadPath)) {
+        die("Upload failed");
     }
 
     $paper->update($id, $subject, $class_name, $year, $newFile);

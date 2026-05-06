@@ -1,6 +1,6 @@
 <?php
 
-require_once "../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 
 /*total notices*/ 
 $totalQuery = "SELECT COUNT(*) AS total_notices FROM notices";
@@ -20,5 +20,5 @@ $weekQuery = "
     $weekData = mysqli_fetch_assoc($weekResult);
 
     $weeklyNotices = $weekData['weekly_notices'];
-
+    
 ?>

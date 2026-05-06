@@ -4,6 +4,6 @@ ini_set('display_errors', 1);
 
 // echo "ROUTE HIT";
 // exit();
-require_once "../controllers/noticeController.php";
+require_once __DIR__ . "/../controllers/noticeController.php";
 
 ?>

@@ -68,10 +68,18 @@ $result = mysqli_query($conn, $query);
             <a 
             href="<?php echo BASE_URL; ?>admin-panel/backend/routes/dailyDiary.php?delete=<?php echo $row['id']; ?>" 
             onclick="return confirm('Are you sure you want to delete this entry?')"
-            class="text-red-500 hover:text-red-700 text-sm"
+            class="w-20 px-12 h-10 mt-6 text-sm rounded-3xl bg-red-500 hover:shadow-lg hover:bg-red-600 transition-all duration-200 text-white font-semibold flex flex-row justify-center items-center gap-1"
         >
-                <i class="mt-5 text-sm fas fa-trash"></i> Delete
+                <i class="mt-0 text-sm fas fa-trash"></i> Delete
             </a>
+
+            <div>
+            <?php if(!empty($row['file_path'])) { ?>
+                <a class="w-30 h-10 px-5 text-sm font-bold transition-all duration-200 rounded-3xl hover:bg-blue-600 hover:shadow-lg text-white bg-blue-500 flex justify-center items-center" href="<?php echo BASE_URL; ?>uploads/<?php echo $row['file_path']; ?>" target="_blank">
+                    View File
+                </a>
+            <?php } ?>
+            </div>
 
             </div>
 

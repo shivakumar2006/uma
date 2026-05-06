@@ -1,10 +1,10 @@
 <?php
 
-require_once "../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../../config/app.php";
-require_once "../models/job.php";
+require_once __DIR__ . "/../models/job.php";
 
-$job = new job($conn);
+$job = new Job($conn);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
@@ -18,12 +18,25 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $fileName = "";
 
     if(isset($_FILES["file"]) && $_FILES["file"]["name"] != ""){
-        $fileName = $_FILES["file"]["name"];
-        $tmp = $_FILES["file"]["tmp_name"];
-        move_uploaded_file($tmp, "../uploads/" . $fileName);
+
+        $file = $_FILES["file"];
+        $tmp = $file["tmp_name"];
+        
+        $ext = pathinfo($file["name"], PATHINFO_EXTENSION);
+        $fileName = time() . "_" . uniqid() . "." . $ext;
+        
+        $uploadDir = __DIR__ . "/../../../uploads/";
+        
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0777, true);
+        }
+    
+        if (!move_uploaded_file($tmp, $uploadDir . $fileName)) {
+            die("File upload failed");
+        }
     }
 
-    // ✅ CORRECT LOGIC
+    // CORRECT LOGIC
     if($id){
         // UPDATE
         $result = $job->update($id, $title, $description, $category, $experience, $fileName, $status);

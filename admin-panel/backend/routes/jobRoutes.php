@@ -1,5 +1,5 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-require_once "../controllers/jobController.php";
+require_once __DIR__ . "/../controllers/jobController.php";
 ?>

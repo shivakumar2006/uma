@@ -1,3 +1,3 @@
 <?php
-require_once "../controllers/programController.php";
+require_once __DIR__ . "/../controllers/programController.php";
 ?>

@@ -1,8 +1,8 @@
 <?php
 
-require_once "../config/db.php";
+require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../../config/app.php";
-require_once "../models/timeTable.php";
+require_once __DIR__ . "/../models/timeTable.php";
 
 $timetable = new TimeTable($conn);
 
@@ -11,17 +11,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && empty($_POST["id"])) {
 
     $class_name = $_POST["class_name"];
 
-    $fileName = $_FILES["file"]["name"];
+    $fileName = $_FILES["file"]["name"] ?? '';
     $tmp = $_FILES["file"]["tmp_name"];
-
+    
     $ext = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-
-    // allow only pdf
+    
     if ($ext !== "pdf") {
         die("Only PDF files are allowed");
     }
-
-    $newFileName = time() . "_" . $fileName;
+    
+    $finfo = finfo_open(FILEINFO_MIME_TYPE);
+    $mime = finfo_file($finfo, $tmp);
+    finfo_close($finfo);
+    
+    if ($mime !== "application/pdf") {
+        die("Only valid PDF allowed");
+    }
+    
+    $newFileName = time() . "_" . uniqid() . ".pdf";
 
     $uploadDir = realpath(__DIR__ . "/../../../") . "/uploads/";
 
